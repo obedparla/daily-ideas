@@ -20,14 +20,13 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 
 
-class App extends React.Component {
-  state = {
-    checked: [0],
-    idea: '',
-  };
+const App = (props) => {
+  const {classes} = props;
+  const [ideasList, handleIdeaSubmit] = useState([]);
+  const [checked, setChecked] = useState([0]);
+  const [idea, setIdea] = useState('');
 
-  handleToggle = value => () => {
-    const {checked} = this.state;
+  const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -37,22 +36,12 @@ class App extends React.Component {
       newChecked.splice(currentIndex, 1);
     }
 
-    this.setState({
-      checked: newChecked,
-    });
+    setChecked(newChecked);
   };
 
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
+  const handleChange = event => {
+    setIdea(event.target.value);
   };
-
-
-  render() {
-
-    const [ideasList, handleIdeaSubmit] = useState([]);
-    const {classes} = this.props;
 
     return (
       <div className={classes.root}>
@@ -67,9 +56,9 @@ class App extends React.Component {
 
           <List className={classes.root}>
             {ideasList.map(value => (
-              <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
+              <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
                 <Checkbox
-                  checked={this.state.checked.indexOf(value) !== -1}
+                  checked={checked.indexOf(value) !== -1}
                   tabIndex={-1}
                   disableRipple
                 />
@@ -89,8 +78,8 @@ class App extends React.Component {
                 id="outlined-name"
                 label="Ideas"
                 className={classes.textField}
-                value={this.state.name}
-                onChange={this.handleChange('idea')}
+                value={idea}
+                onChange={handleChange('idea')}
                 margin="normal"
                 variant="outlined"
               />
@@ -99,7 +88,6 @@ class App extends React.Component {
         </Grid>
       </div>
     );
-  }
 }
 
 const styles = (theme) => ({
