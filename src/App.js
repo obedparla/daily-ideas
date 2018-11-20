@@ -15,7 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
 
 import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
+import {Add as AddIcon, Delete as DeleteIcon} from '@material-ui/icons';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -50,7 +50,8 @@ const App = (props) => {
   };
 
   const handleDelete = () => {
-    setIdeaList([]);
+    const removedChecked = ideasList.filter(idea => checked.indexOf(idea) === -1);
+    setIdeaList(removedChecked);
   }
 
   return (
@@ -72,7 +73,7 @@ const App = (props) => {
                 tabIndex={-1}
                 disableRipple
               />
-              <ListItemText primary={`Line item ${value + 1}`}/>
+              <ListItemText primary={value}/>
               <ListItemSecondaryAction>
                 <IconButton aria-label="Comments">
                   <CommentIcon/>
@@ -86,6 +87,9 @@ const App = (props) => {
       <form className={classes.container} noValidate autoComplete="off" onSubmit={handleIdeaSubmit}>
         <Paper className={classes.paper} elevation={1} style={{textAlign: 'center'}}>
           <Grid container justify='center' alignItems={'center'}>
+            <Button variant="fab" color="primary" aria-label="Add" className={classes.button}>
+              <AddIcon />
+            </Button>
             <TextField
               id="outlined-name"
               label="Ideas"
