@@ -19,11 +19,8 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
-import {BrowserRouter as Router} from 'react-router-dom';
 
-import Navigation from '../Navigation';
-
-const App = (props) => {
+const IdeaList = (props) => {
   const {classes} = props;
   const [ideasList, setIdeaList] = useState([]);
   const [checked, setChecked] = useState([0]);
@@ -58,18 +55,7 @@ const App = (props) => {
   }
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h3" color="inherit" className={classes.grow}>
-            Daily Ideas
-          </Typography>
-          <Router>
-            <Navigation />
-          </Router>
-        </Toolbar>
-      </AppBar>
-
+    <div >
       <List className={classes.root}>
         {ideasList.map(value => (
           <Paper className={classes.paper} elevation={2} style={{textAlign: 'center'}}>
@@ -115,22 +101,17 @@ const App = (props) => {
   );
 }
 
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    width: '80%',
-    margin: '0 auto',
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  dense: {
-    marginTop: 16,
-  },
-});
+  const styles = (theme) => ({
+    grow: {
+      flexGrow: 1,
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+    },
+    dense: {
+      marginTop: 16,
+    },
+  });
 
-export default withStyles(styles)(App);
+  export default withStyles(styles)(IdeaList);
