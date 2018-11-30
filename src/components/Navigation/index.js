@@ -12,6 +12,9 @@ const Navigation = () => (
     <Link to={ROUTES.SIGN_IN}>
       <Button color="secondary">Login</Button>
     </Link>
+    <Link to={ROUTES.SIGN_UP}>
+      <Button color="secondary">Sign up</Button>
+    </Link>
   </>
 );
 

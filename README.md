@@ -1,8 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Record your daily ideas in an easy to sue app.
 
 # Daily Ideas app
 
-Record your daily ideas in an easy to sue app.
+A React-Hooks-Only app! No classes, no old grumpy state, only stateful functions! Wohoo!
+
 
 ## How to run the app
 
