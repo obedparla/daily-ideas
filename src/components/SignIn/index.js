@@ -2,50 +2,41 @@ import React, {useContext, useState} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {Link, withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import {FirebaseContext} from '../../Firebase';
+import {SignUpLink} from '../SignUp';
 
-const SignUpPage = (props) => (
+const SignInPage = (props) => (
   <div>
-    <h1>SignUp</h1>
-    <SignUpForm {...props}/>
+    <h1>Sign In</h1>
+    <SignInForm {...props}/>
+    <SignUpLink/>
   </div>
-);
-export const SignUpLink = () => (
-  <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-  </p>
 );
 
 const INITIAL_STATE = {
-  username: '',
   email: '',
-  passwordOne: '',
-  passwordTwo: '',
+  password: '',
 };
 
-const SignUpFormFunc = (props) => {
+const SignInFormFunc = (props) => {
   const {classes} = props;
   const [formState, setFormState] = useState({...INITIAL_STATE});
   const [error, setError] = useState(null);
   const firebase = useContext(FirebaseContext);
 
-  const {username, email, passwordOne, passwordTwo} = formState;
+  const {email, passwordOne } = formState;
 
-  const isInvalid =
-    passwordOne !== passwordTwo ||
-    passwordOne === '' ||
-    email === '' ||
-    username === '';
+  const isInvalid = !passwordOne || !email;
 
   const onChange = name => event => {
     setFormState({...formState, [name]: event.target.value});
   };
 
   const onSubmit = event => {
-      firebase.createUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
+    firebase.signInWithEmailAndPassword(email, passwordOne)
+      .then(() => {
         setFormState({...INITIAL_STATE});
         setError(null);
         props.history.push(ROUTES.LANDING);
@@ -60,15 +51,6 @@ const SignUpFormFunc = (props) => {
   return (
     <form className={classes.container} onSubmit={onSubmit}>
       <div>
-        <TextField
-          required
-          id="standard-username"
-          label="Full Name"
-          className={classes.textField}
-          value={formState.username}
-          onChange={onChange('username')}
-          margin="normal"
-        />
         <TextField
           required
           id="standard-email"
@@ -88,20 +70,10 @@ const SignUpFormFunc = (props) => {
           onChange={onChange('passwordOne')}
           margin="normal"
         />
-        <TextField
-          required
-          id="standard-passwordTwo"
-          label="Confirm Password"
-          type="password"
-          className={classes.textField}
-          value={formState.passwordTwo}
-          onChange={onChange('passwordTwo')}
-          margin="normal"
-        />
       </div>
       <div>
         <Button disabled={isInvalid} type={'submit'} variant="outlined" color="primary" className={classes.button}>
-          Sign Up
+          Sign In
         </Button>
       </div>
       {error && <p>{error.message}</p>}
@@ -109,7 +81,7 @@ const SignUpFormFunc = (props) => {
   );
 }
 
-const SignUpForm = withRouter(SignUpFormFunc);
+const SignInForm = withRouter(SignInFormFunc);
 
 const styles = theme => ({
   container: {
@@ -128,4 +100,4 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(SignUpPage);
+export default withStyles(styles)(SignInPage);

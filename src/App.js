@@ -9,6 +9,7 @@ import {withStyles} from "@material-ui/core";
 import * as ROUTES from './constants/routes';
 import IdeaList from './components/IdeaList';
 import SignUp from './components/SignUp'
+import SignIn from './components/SignIn'
 
 const App = (props) => {
   const {classes} = props;
@@ -26,6 +27,7 @@ const App = (props) => {
 
         <Route exact path={ROUTES.LANDING} component={IdeaList}/>
         <Route exact path={ROUTES.SIGN_UP} component={SignUp}/>
+        <Route exact path={ROUTES.SIGN_IN} component={SignIn}/>
       </div>
     </Router>
   );
