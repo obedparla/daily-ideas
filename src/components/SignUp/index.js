@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 
 const SignUpPage = (props) => (
@@ -10,15 +10,15 @@ const SignUpPage = (props) => (
   </div>
 );
 
-const INITIAL_STATE = {
-  username: '',
-  email: '',
-  passwordOne: '',
-  passwordTwo: '',
-  error: null,
-};
-
 const SignUpForm = (props) => {
+  const INITIAL_STATE = {
+    username: '',
+    email: '',
+    passwordOne: '',
+    passwordTwo: '',
+    error: null,
+  };
+
   const {classes} = props;
   const [formState, setFormState] = useState(INITIAL_STATE);
 
@@ -29,37 +29,33 @@ const SignUpForm = (props) => {
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <div>
-        <TextField
+        <Input
           id="standard-username"
-          label="Full Name"
+          placeholder="Full Name"
           className={classes.textField}
           value={formState.username}
           onChange={onChange('username')}
-          margin="normal"
         />
-        <TextField
+        <Input
           id="standard-email"
-          label="Email Address"
+          placeholder="Email Address"
           className={classes.textField}
           value={formState.email}
           onChange={onChange('email')}
-          margin="normal"
         />
-        <TextField
+        <Input
           id="standard-passwordOne"
-          label="Password"
+          placeholder="Password"
           className={classes.textField}
           value={formState.passwordOne}
           onChange={onChange('passwordOne')}
-          margin="normal"
         />
-        <TextField
+        <Input
           id="standard-passwordTwo"
-          label="Confirm Password"
+          placeholder="Confirm Password"
           className={classes.textField}
           value={formState.passwordTwo}
           onChange={onChange('passwordTwo')}
-          margin="normal"
         />
       </div>
       <div>
@@ -78,8 +74,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    margin: theme.spacing.unit,
     width: 200,
   },
   dense: {
