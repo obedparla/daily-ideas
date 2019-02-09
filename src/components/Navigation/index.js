@@ -1,8 +1,9 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
-import * as ROUTES from '../../constants/routes';
+import * as ROUTES from "../../constants/routes";
+import SignOutButton from "../SignOut";
 
 const Navigation = () => (
   <>
@@ -15,6 +16,7 @@ const Navigation = () => (
     <Link to={ROUTES.SIGN_UP}>
       <Button color="secondary">Sign up</Button>
     </Link>
+    <SignOutButton />
   </>
 );
 
