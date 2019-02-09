@@ -1,93 +1,138 @@
-import React, {useState} from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import React, { useContext, useState } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { Link, withRouter } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
+import { FirebaseContext } from "../../Firebase";
 
-const SignUpPage = (props) => (
+const SignUpPage = props => (
   <div>
     <h1>SignUp</h1>
-    <SignUpForm {...props}/>
+    <SignUpForm {...props} />
   </div>
+);
+export const SignUpLink = () => (
+  <p>
+    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+  </p>
 );
 
 const INITIAL_STATE = {
-  username: '',
-  email: '',
-  passwordOne: '',
-  passwordTwo: '',
-  error: null,
+  username: "",
+  email: "",
+  passwordOne: "",
+  passwordTwo: ""
 };
 
-const SignUpForm = (props) => {
-  const {classes} = props;
-  const [formState, setFormState] = useState(INITIAL_STATE);
+const SignUpFormFunc = props => {
+  const { classes } = props;
+  const [formState, setFormState] = useState({ ...INITIAL_STATE });
+  const [error, setError] = useState(null);
+  const firebase = useContext(FirebaseContext);
+
+  const { username, email, passwordOne, passwordTwo } = formState;
+
+  const isInvalid =
+    passwordOne !== passwordTwo ||
+    passwordOne === "" ||
+    email === "" ||
+    username === "";
 
   const onChange = name => event => {
-    setFormState({[name]: event.target.value});
+    setFormState({ ...formState, [name]: event.target.value });
+  };
+
+  const onSubmit = event => {
+    firebase
+      .createUserWithEmailAndPassword(email, passwordOne)
+      .then(authUser => {
+        setFormState({ ...INITIAL_STATE });
+        setError(null);
+        props.history.push(ROUTES.LANDING);
+      })
+      .catch(error => {
+        setError(error);
+      });
+
+    event.preventDefault();
   };
 
   return (
-    <form className={classes.container} noValidate autoComplete="off">
+    <form className={classes.container} onSubmit={onSubmit}>
       <div>
         <TextField
+          required
           id="standard-username"
           label="Full Name"
           className={classes.textField}
           value={formState.username}
-          onChange={onChange('username')}
+          onChange={onChange("username")}
           margin="normal"
         />
         <TextField
+          required
           id="standard-email"
           label="Email Address"
           className={classes.textField}
           value={formState.email}
-          onChange={onChange('email')}
+          onChange={onChange("email")}
           margin="normal"
         />
         <TextField
+          required
           id="standard-passwordOne"
           label="Password"
+          type="password"
           className={classes.textField}
           value={formState.passwordOne}
-          onChange={onChange('passwordOne')}
+          onChange={onChange("passwordOne")}
           margin="normal"
         />
         <TextField
+          required
           id="standard-passwordTwo"
           label="Confirm Password"
+          type="password"
           className={classes.textField}
           value={formState.passwordTwo}
-          onChange={onChange('passwordTwo')}
+          onChange={onChange("passwordTwo")}
           margin="normal"
         />
       </div>
       <div>
-        <Button variant="outlined" color="primary" className={classes.button}>
-          Primary
+        <Button
+          disabled={isInvalid}
+          type={"submit"}
+          variant="outlined"
+          color="primary"
+          className={classes.button}
+        >
+          Sign Up
         </Button>
       </div>
-      {formState.error && <p>{formState.error.message}</p>}
+      {error && <p>{error.message}</p>}
     </form>
   );
-}
+};
+
+const SignUpForm = withRouter(SignUpFormFunc);
 
 const styles = theme => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap"
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
+    margin: theme.spacing.unit,
+    width: 200
   },
   dense: {
-    marginTop: 19,
+    marginTop: 19
   },
   menu: {
-    width: 200,
-  },
+    width: 200
+  }
 });
 
 export default withStyles(styles)(SignUpPage);
