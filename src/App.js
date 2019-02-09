@@ -6,42 +6,32 @@ import Navigation from './components/Navigation';
 import React, { useContext, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 
-import { withFirebase } from './Firebase';
 import * as ROUTES from './constants/routes';
 import IdeaList from './components/IdeaList';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import { withAuthentication } from './components/Session';
 
 const App = (props) => {
   const { classes } = props;
-  const { authUser, setAuthUser } = useState(null);
-  const firebase = useContext(withFirebase);
-
-  useEffect(() => {
-    const firebaseListener =  firebase.auth.onAuthStateChanged(authUser =>
-      authUser ? setAuthUser(authUser) : setAuthUser(null));
-
-    // Stop the listener
-    return firebaseListener();
-  });
 
   return (
-    <Router>
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h3" color="inherit" className={classes.grow}>
-              Daily Ideas
-            </Typography>
-          </Toolbar>
-          <Navigation authUser={authUser} />
-        </AppBar>
+      <Router>
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h3" color="inherit" className={classes.grow}>
+                Daily Ideas
+              </Typography>
+            </Toolbar>
+            <Navigation />
+          </AppBar>
 
-        <Route exact path={ROUTES.LANDING} component={IdeaList} />
-        <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
-        <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
-      </div>
-    </Router>
+          <Route exact path={ROUTES.LANDING} component={IdeaList} />
+          <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
+          <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
+        </div>
+      </Router>
   );
 };
 
@@ -56,4 +46,4 @@ const styles = () => ({
   },
 });
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(withAuthentication(App));

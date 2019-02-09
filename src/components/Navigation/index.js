@@ -1,13 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
-import * as ROUTES from "../../constants/routes";
-import SignOutButton from "../SignOut";
+import { AuthUserContext } from '../Session';
+import * as ROUTES from '../../constants/routes';
+import SignOutButton from '../SignOut';
 
-const Navigation = ({ authUser }) => (
-  <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
-);
+const Navigation = () => {
+  const authUser = useContext(AuthUserContext);
+
+  console.log("authUser", authUser);
+  return (
+    <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
+  );
+};
 
 const NavigationAuth = () => (
   <ul>

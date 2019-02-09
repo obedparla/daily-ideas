@@ -17,7 +17,7 @@ const SignInPage = (props) => (
 
 const INITIAL_STATE = {
   email: '',
-  password: '',
+  passwordOne: '',
 };
 
 const SignInFormFunc = (props) => {
