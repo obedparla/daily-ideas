@@ -13,7 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
 
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import {Add as AddIcon, Delete as DeleteIcon} from '@material-ui/icons';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
@@ -58,7 +58,7 @@ const IdeaList = (props) => {
     <div >
       <List className={classes.root}>
         {ideasList.map(value => (
-          <Paper className={classes.paper} elevation={2} style={{textAlign: 'center'}}>
+          <Paper key={value} className={classes.paper} elevation={2} style={{textAlign: 'center'}}>
             <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
               <Checkbox
                 checked={checked.indexOf(value) !== -1}
@@ -79,9 +79,9 @@ const IdeaList = (props) => {
       <form className={classes.container} noValidate autoComplete="off" onSubmit={handleIdeaSubmit}>
         <Paper className={classes.paper} elevation={1} style={{textAlign: 'center'}}>
           <Grid container justify='center' alignItems={'center'}>
-            <Button variant="fab" color="primary" aria-label="Add" className={classes.button}>
+            <Fab color="primary" aria-label="Add" className={classes.button}>
               <AddIcon />
-            </Button>
+            </Fab>
             <TextField
               id="outlined-name"
               label="Ideas"
@@ -91,9 +91,9 @@ const IdeaList = (props) => {
               margin="normal"
               variant="outlined"
             />
-            <Button variant="fab" aria-label="Delete" className={classes.button} onClick={handleDelete}>
+            <Fab aria-label="Delete" className={classes.button} onClick={handleDelete}>
               <DeleteIcon/>
-            </Button>
+            </Fab>
           </Grid>
         </Paper>
       </form>
