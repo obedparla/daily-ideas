@@ -6,12 +6,14 @@ import {withRouter} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import {withFirebase} from '../../Firebase';
 import {SignUpLink} from '../SignUp';
+import { PasswordForgetLink } from '../ResetPassword';
 
 const SignInPage = (props) => (
   <div>
     <h1>Sign In</h1>
     <SignInForm {...props}/>
     <SignUpLink/>
+    <PasswordForgetLink />
   </div>
 );
 

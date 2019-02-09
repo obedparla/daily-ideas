@@ -11,27 +11,33 @@ import IdeaList from './components/IdeaList';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import { withAuthentication } from './components/Session';
+import PasswordForgetPage from './components/ResetPassword';
 
 const App = (props) => {
   const { classes } = props;
 
   return (
-      <Router>
-        <div className={classes.root}>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography variant="h3" color="inherit" className={classes.grow}>
-                Daily Ideas
-              </Typography>
-            </Toolbar>
-            <Navigation />
-          </AppBar>
+    <Router>
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h3" color="inherit" className={classes.grow}>
+              Daily Ideas
+            </Typography>
+          </Toolbar>
+          <Navigation />
+        </AppBar>
 
-          <Route exact path={ROUTES.LANDING} component={IdeaList} />
-          <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
-          <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
-        </div>
-      </Router>
+        <Route exact path={ROUTES.LANDING} component={IdeaList} />
+        <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
+        <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
+
+        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+        {/*<Route path={ROUTES.HOME} component={HomePage} />*/}
+        {/*<Route path={ROUTES.ACCOUNT} component={AccountPage} />*/}
+        {/*<Route path={ROUTES.ADMIN} component={AdminPage} />*/}
+      </div>
+    </Router>
   );
 };
 
