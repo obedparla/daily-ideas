@@ -5,11 +5,13 @@ const AuthUserContext = React.createContext(null);
 
 const withAuthentication = Component => (props) => {
 
-  const { authUser, setAuthUser } = useState(null);
+  const [ authUser, setAuthUser ] = useState(null);
   const firebase = useContext(withFirebase);
 
   useEffect(() => {
-    const firebaseListener = firebase.auth.onAuthStateChanged(newAuthUser => {
+    const firebaseListener = () => {};
+
+    firebase.auth.onAuthStateChanged(newAuthUser => {
       console.log('New auth user', newAuthUser);
 
       newAuthUser ? setAuthUser(newAuthUser) : setAuthUser(null);

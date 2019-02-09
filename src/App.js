@@ -3,7 +3,7 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core';
 
 import * as ROUTES from './constants/routes';

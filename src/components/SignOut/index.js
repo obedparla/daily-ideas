@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import { withFirebase } from "../../Firebase";
 
