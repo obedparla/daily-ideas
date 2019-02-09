@@ -20,11 +20,12 @@ const INITIAL_STATE = {
   password: '',
 };
 
-const SignInFormFunc = (props) => {
+const SignInForm = (props) => {
   const {classes} = props;
   const [formState, setFormState] = useState({...INITIAL_STATE});
   const [error, setError] = useState(null);
   const firebase = useContext(FirebaseContext);
+  const router = useContext(withRouter);
 
   const {email, passwordOne } = formState;
 
@@ -39,7 +40,7 @@ const SignInFormFunc = (props) => {
       .then(() => {
         setFormState({...INITIAL_STATE});
         setError(null);
-        props.history.push(ROUTES.LANDING);
+        router.history.push(ROUTES.LANDING);
       })
       .catch(error => {
         setError(error);
@@ -80,8 +81,6 @@ const SignInFormFunc = (props) => {
     </form>
   );
 }
-
-const SignInForm = withRouter(SignInFormFunc);
 
 const styles = theme => ({
   container: {
