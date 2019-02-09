@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App.js';
 import * as serviceWorker from './serviceWorker';
-import {Firebase, FirebaseContext} from './Firebase';
+import {Firebase, withFirebase} from './Firebase';
 
 ReactDOM.render(
-  <FirebaseContext.Provider value={new Firebase()}>
+  <withFirebase.Provider value={new Firebase()}>
     <App/>
-  </FirebaseContext.Provider>
+  </withFirebase.Provider>
   , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

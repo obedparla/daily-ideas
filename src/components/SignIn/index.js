@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {withRouter} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import {FirebaseContext} from '../../Firebase';
+import {withFirebase} from '../../Firebase';
 import {SignUpLink} from '../SignUp';
 
 const SignInPage = (props) => (
@@ -20,12 +20,11 @@ const INITIAL_STATE = {
   password: '',
 };
 
-const SignInForm = (props) => {
+const SignInFormFunc = (props) => {
   const {classes} = props;
   const [formState, setFormState] = useState({...INITIAL_STATE});
   const [error, setError] = useState(null);
-  const firebase = useContext(FirebaseContext);
-  const router = useContext(withRouter);
+  const firebase = useContext(withFirebase);
 
   const {email, passwordOne } = formState;
 
@@ -40,9 +39,10 @@ const SignInForm = (props) => {
       .then(() => {
         setFormState({...INITIAL_STATE});
         setError(null);
-        router.history.push(ROUTES.LANDING);
+        props.history.push(ROUTES.LANDING);
       })
       .catch(error => {
+        console.error(error);
         setError(error);
       });
 
@@ -81,6 +81,8 @@ const SignInForm = (props) => {
     </form>
   );
 }
+
+const SignInForm = withRouter(SignInFormFunc);
 
 const styles = theme => ({
   container: {
