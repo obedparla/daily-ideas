@@ -10,7 +10,6 @@ const AdmimPage = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log("Hola");
 
     firebase.users().on('value', snapshot => {
       const usersObject = snapshot.val();
@@ -22,10 +21,10 @@ const AdmimPage = (props) => {
       console.log("Aloha");
       setUsers(usersList);
       setLoading(false);
-    });
+    }, (e) => console.error(e));
 
-    return firebase.users().off();
-  });
+    return () => firebase.users().off();
+  }, []);
 
   return (
     <div>

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../../Firebase';
 import * as ROUTES from '../../constants/routes';
 
+  // Currently not working
 export const withAuthorization = () => Component => {
   const condition = authUser => !!authUser;
   const firebase = withFirebase;
