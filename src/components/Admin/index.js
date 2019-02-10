@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { withFirebase } from '../../Firebase';
 import { UserList } from './components/UserList';
+import { withAuthorization } from '../Session';
 
 const AdmimPage = (props) => {
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,6 @@ const AdmimPage = (props) => {
         uid: key,
       }));
 
-      console.log("Aloha");
       setUsers(usersList);
       setLoading(false);
     }, (e) => console.error(e));
@@ -35,4 +35,4 @@ const AdmimPage = (props) => {
   );
 };
 
-export default AdmimPage;
+export default withAuthorization(authUser => !!authUser)(AdmimPage);

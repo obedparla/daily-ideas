@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {useState} from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import {withRouter} from 'react-router-dom';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,8 +16,6 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
 import { AuthUserContext, withAuthorization } from '../Session';
-import * as ROUTES from '../../constants/routes';
-import withFirebase from '../../Firebase/context';
 
 const IdeaList = (props) => {
   const {classes} = props;
@@ -26,19 +23,6 @@ const IdeaList = (props) => {
   const [checked, setChecked] = useState([0]);
   const [idea, setIdea] = useState('');
   const authUser = useContext(AuthUserContext);
-  const firebase = useContext(withFirebase);
-
-    useEffect(() => {
-      const listener = firebase.auth.onAuthStateChanged(
-        authUser => {
-          if (!(!!authUser)) {
-            props.history.push(ROUTES.SIGN_IN);
-          }
-        },
-      );
-
-      return listener();
-    })
 
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
@@ -130,4 +114,4 @@ const IdeaList = (props) => {
   });
 
 
-export default withStyles(styles)(withRouter(IdeaList));
+export default withStyles(styles)(withAuthorization(authUser => !!authUser)(IdeaList));
