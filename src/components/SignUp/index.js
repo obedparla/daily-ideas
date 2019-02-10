@@ -48,6 +48,10 @@ const SignUpFunc = props => {
     firebase
       .createUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
+        // Create a user in Firebase realtime database
+        return firebase.user(authUser.user.uid).set({ username, email });
+      })
+      .then(authUser => {
         setFormState({ ...INITIAL_STATE });
         setError(null);
         props.history.push(ROUTES.LANDING);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {useState} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 
@@ -9,19 +9,20 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
-
 import Fab from '@material-ui/core/Fab';
 import {Add as AddIcon, Delete as DeleteIcon} from '@material-ui/icons';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
+import { AuthUserContext, withAuthorization } from '../Session';
 
 const IdeaList = (props) => {
   const {classes} = props;
   const [ideasList, setIdeaList] = useState([]);
   const [checked, setChecked] = useState([0]);
   const [idea, setIdea] = useState('');
+  const authUser = useContext(AuthUserContext);
 
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
@@ -53,6 +54,7 @@ const IdeaList = (props) => {
 
   return (
     <div >
+      {authUser && <h1>Account: {authUser.email}</h1>}
       <List className={classes.root}>
         {ideasList.map(value => (
           <Paper key={value} className={classes.paper} elevation={2} style={{textAlign: 'center'}}>
@@ -111,4 +113,5 @@ const IdeaList = (props) => {
     },
   });
 
-  export default withStyles(styles)(IdeaList);
+
+export default withStyles(styles)(withAuthorization(IdeaList));
