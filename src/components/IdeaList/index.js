@@ -28,15 +28,17 @@ const IdeaList = (props) => {
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(withFirebase);
 
-  useEffect(() => {
-    firebase.auth.onAuthStateChanged(
-      authUser => {
-        if (!(!!authUser)) {
-          props.history.push(ROUTES.SIGN_IN);
-        }
-      },
-    );
-  })
+    useEffect(() => {
+      const listener = firebase.auth.onAuthStateChanged(
+        authUser => {
+          if (!(!!authUser)) {
+            props.history.push(ROUTES.SIGN_IN);
+          }
+        },
+      );
+
+      return listener();
+    })
 
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
