@@ -2,14 +2,14 @@ import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {SignUpLink} from '../SignUp';
 import { PasswordForgetLink } from '../ResetPassword';
-import SignInForm from './components';
+import {SignInForm, SignInGoogle} from './components';
 
 const SignInPage = (props) => (
   <div>
     <h1>Sign In</h1>
     <SignInForm {...props}/>
     <SignInGoogle />
-    <SignInFacebook />
+    {/*<SignInFacebook />*/}
 
     <SignUpLink/>
     <PasswordForgetLink />

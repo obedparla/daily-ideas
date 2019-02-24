@@ -31,8 +31,8 @@ const SignInGoogleBase = (props) => {
         });
       })
       .then(() => {
-        this.setState({ error: null });
-        props.history.push(ROUTES.HOME);
+        setError(null);
+        props.history.push(ROUTES.LANDING);
       })
       .catch(error => {
         if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
