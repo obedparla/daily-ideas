@@ -4,16 +4,17 @@ import { withStyles } from "@material-ui/core/styles";
 import CommentIcon from "@material-ui/icons/Comment";
 import { Add as AddIcon, Delete as DeleteIcon } from "@material-ui/icons";
 import {
-  IconButton,
   Checkbox,
   Fab,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
   Paper,
-  TextField
+  TextField,
+  CircularProgress
 } from "@material-ui/core";
 
 import { AuthUserContext, withAuthorization } from "../Session";
@@ -25,23 +26,32 @@ let titleTimeout;
 
 const IdeaList = props => {
   const { classes } = props;
+
   const [ideasList, setIdeaList] = useState([]);
   const [checked, setChecked] = useState([0]);
   const [idea, setIdea] = useState("");
   const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(true);
+
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(withFirebase);
   const userId = authUser.uid;
+
   const firebaseIdeas = firebase.ideas(userId, currentDate);
   const firebaseTitle = firebase.ideaTitle(userId, currentDate);
+
   useEffect(() => {
     firebaseIdeas.on("value", snapshot => {
       const ideas = snapshot.val();
 
       if (ideas) {
         // Populate the list by going through the data we get from firebase db
-        const ideasList = Object.keys(ideas).map(key => ideas[key].text);
+        const ideasList = Object.keys(ideas).map(key => ({
+          text: ideas[key].text,
+          id: key
+        }));
         setIdeaList([...ideasList]);
+        setLoading(false);
       }
     });
 
@@ -53,15 +63,13 @@ const IdeaList = props => {
     };
   }, []);
 
-  const handleToggle = value => () => {
-    const currentIndex = checked.indexOf(value);
+  const handleToggle = id => () => {
+    const currentIndex = checked.indexOf(id);
     const newChecked = [...checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
+    currentIndex === -1
+      ? newChecked.push(id)
+      : newChecked.splice(currentIndex, 1);
 
     setChecked(newChecked);
   };
@@ -76,95 +84,106 @@ const IdeaList = props => {
     setIdea("");
   };
 
+  // Delete the checked items, no need to update state as useEffect does it.
   const handleDelete = () => {
-    const removedChecked = ideasList.filter(
-      idea => checked.indexOf(idea) === -1
-    );
-    setIdeaList(removedChecked);
+    ideasList.forEach(idea => {
+      if (checked.includes(idea.id)) {
+        firebase.idea(userId, currentDate, idea.id).remove();
+      }
+    });
   };
 
   const handleTitleChange = e => {
-    setTitle(e.target.value);
-
+    const value = e.target.value;
+    setTitle(value);
     // Debounce the function call
     clearTimeout(titleTimeout);
-    titleTimeout = setTimeout(() => firebaseTitle.set(title), 2000);
+    titleTimeout = setTimeout(() => firebaseTitle.set(value), 1000);
   };
 
   return (
     <>
-      <List className={classes.root}>
-        <input
-          type="text"
-          value={title}
-          placeholder={"Title"}
-          onChange={handleTitleChange}
-          style={{ border: "none", fontSize: "28px" }}
-        />
-        {ideasList.map((value, index) => (
-          <Paper
-            key={index + value}
-            className={classes.paper}
-            elevation={2}
-            style={{ textAlign: "center" }}
-          >
-            <ListItem
-              key={value}
-              role={undefined}
-              dense
-              button
-              onClick={handleToggle(value)}
-            >
-              <Checkbox
-                checked={checked.indexOf(value) !== -1}
-                tabIndex={-1}
-                disableRipple
-              />
-              <ListItemText primary={value} />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Comments">
-                  <CommentIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          </Paper>
-        ))}
-      </List>
-
-      <form
-        className={classes.container}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleIdeaSubmit}
-      >
-        <Paper
-          className={classes.paper}
-          elevation={1}
-          style={{ textAlign: "center" }}
-        >
-          <Grid container justify="center" alignItems={"center"}>
-            <Fab color="primary" aria-label="Add" className={classes.button}>
-              <AddIcon />
-            </Fab>
-            <TextField
-              id="outlined-name"
-              label="Ideas"
-              className={classes.textField}
-              value={idea}
-              onChange={handleChange}
-              margin="normal"
-              variant="outlined"
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <List className={classes.root}>
+            <input
+              type="text"
+              value={title}
+              placeholder={"Title"}
+              onChange={handleTitleChange}
+              style={{ border: "none", fontSize: "28px" }}
             />
-            <Fab
-              aria-label="Delete"
-              className={classes.button}
-              onClick={handleDelete}
+            {ideasList.map((idea, index) => (
+              <Paper
+                key={idea.id}
+                className={classes.paper}
+                elevation={2}
+                style={{ textAlign: "center" }}
+              >
+                <ListItem
+                  role={undefined}
+                  dense
+                  button
+                  onClick={handleToggle(idea.id)}
+                >
+                  <Checkbox
+                    checked={checked.includes(idea.id)}
+                    tabIndex={-1}
+                    disableRipple
+                  />
+                  <ListItemText primary={idea.text} />
+                  <ListItemSecondaryAction>
+                    <IconButton aria-label="Comments">
+                      <CommentIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </Paper>
+            ))}
+          </List>
+
+          <form
+            className={classes.container}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleIdeaSubmit}
+          >
+            <Paper
+              className={classes.paper}
+              elevation={1}
+              style={{ textAlign: "center" }}
             >
-              <DeleteIcon />
-            </Fab>
-          </Grid>
-        </Paper>
-      </form>
+              <Grid container justify="center" alignItems={"center"}>
+                <Fab
+                  color="primary"
+                  aria-label="Add"
+                  className={classes.button}
+                >
+                  <AddIcon />
+                </Fab>
+                <TextField
+                  id="outlined-name"
+                  label="Ideas"
+                  className={classes.textField}
+                  value={idea}
+                  onChange={handleChange}
+                  margin="normal"
+                  variant="outlined"
+                />
+                <Fab
+                  aria-label="Delete"
+                  className={classes.button}
+                  onClick={handleDelete}
+                >
+                  <DeleteIcon />
+                </Fab>
+              </Grid>
+            </Paper>
+          </form>
+        </>
+      )}
     </>
   );
 };
