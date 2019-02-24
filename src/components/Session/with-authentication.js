@@ -5,7 +5,7 @@ const AuthUserContext = React.createContext(null);
 
 const withAuthentication = Component => (props) => {
 
-  const [authUser, setAuthUser] = useState(null);
+  const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('authUser')));
   const firebase = useContext(withFirebase);
 
   useEffect(() => {
@@ -13,8 +13,10 @@ const withAuthentication = Component => (props) => {
     // can cause a memory leak
     // const firebaseListener =
 
-    firebase.auth.onAuthStateChanged(newAuthUser =>
-      newAuthUser ? setAuthUser(newAuthUser) : setAuthUser(null)
+    firebase.auth.onAuthStateChanged(newAuthUser => {
+        localStorage.setItem('authUser', JSON.stringify(authUser));
+        newAuthUser ? setAuthUser(newAuthUser) : setAuthUser(null);
+      }
     );
 
     // Stop the listener
