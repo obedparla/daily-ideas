@@ -17,17 +17,24 @@ import Grid from "@material-ui/core/Grid";
 
 import { AuthUserContext, withAuthorization } from "../Session";
 import withFirebase from "../../Firebase/context";
+import { getCurrentDate } from "../../utils/dates";
+
+const currentDate = getCurrentDate();
+let titleTimeout;
 
 const IdeaList = props => {
   const { classes } = props;
   const [ideasList, setIdeaList] = useState([]);
   const [checked, setChecked] = useState([0]);
   const [idea, setIdea] = useState("");
+  const [title, setTitle] = useState("");
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(withFirebase);
-
+  const userId = authUser.uid;
+  const firebaseIdeas = firebase.ideas(userId, currentDate);
+  const firebaseTitle = firebase.ideaTitle(userId, currentDate);
   useEffect(() => {
-    firebase.ideas(authUser.uid).on("value", snapshot => {
+    firebaseIdeas.on("value", snapshot => {
       const ideas = snapshot.val();
 
       if (ideas) {
@@ -37,7 +44,12 @@ const IdeaList = props => {
       }
     });
 
-    return () => firebase.ideas(authUser.uid).off();
+    firebaseTitle.once("value", snapshot => setTitle(snapshot.val()));
+
+    return () => {
+      firebaseIdeas.off();
+      firebaseTitle.off();
+    };
   }, []);
 
   const handleToggle = value => () => {
@@ -59,10 +71,7 @@ const IdeaList = props => {
 
   const handleIdeaSubmit = event => {
     event.preventDefault();
-    firebase
-      .ideas(authUser.uid)
-      .push({ text: idea, date: new Date().getTime() });
-    // setIdeaList([...ideasList, idea]);
+    firebaseIdeas.push({ text: idea, date: new Date().getTime() });
     setIdea("");
   };
 
@@ -73,13 +82,27 @@ const IdeaList = props => {
     setIdeaList(removedChecked);
   };
 
+  const handleTitleChange = e => {
+    setTitle(e.target.value);
+
+    // Debounce the function call
+    clearTimeout(titleTimeout);
+    titleTimeout = setTimeout(() => firebaseTitle.set(title), 2000);
+  };
+
   return (
-    <div>
-      {authUser && <h1>Account: {authUser.email}</h1>}
+    <>
       <List className={classes.root}>
-        {ideasList.map(value => (
+        <input
+          type="text"
+          value={title}
+          placeholder={"Title"}
+          onChange={handleTitleChange}
+          style={{ border: "none", fontSize: "28px" }}
+        />
+        {ideasList.map((value, index) => (
           <Paper
-            key={value}
+            key={index + value}
             className={classes.paper}
             elevation={2}
             style={{ textAlign: "center" }}
@@ -141,7 +164,7 @@ const IdeaList = props => {
           </Grid>
         </Paper>
       </form>
-    </div>
+    </>
   );
 };
 
