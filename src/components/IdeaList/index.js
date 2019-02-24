@@ -1,19 +1,20 @@
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
-import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
-import Fab from "@material-ui/core/Fab";
 import { Add as AddIcon, Delete as DeleteIcon } from "@material-ui/icons";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
+import {
+  IconButton,
+  Checkbox,
+  Fab,
+  Grid,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  Paper,
+  TextField
+} from "@material-ui/core";
 
 import { AuthUserContext, withAuthorization } from "../Session";
 import withFirebase from "../../Firebase/context";
