@@ -3,16 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import withFirebase from '../../../Firebase/context';
 import * as ROUTES from '../../../constants/routes';
+import { ERROR_CODE_ACCOUNT_EXISTS, ERROR_MSG_ACCOUNT_EXISTS } from './messages';
+import Button from '@material-ui/core/Button';
 
-const ERROR_CODE_ACCOUNT_EXISTS =
-  'auth/account-exists-with-different-credential';
-
-const ERROR_MSG_ACCOUNT_EXISTS = `
-  An account with an E-Mail address to
-  this social account already exists. Try to login from
-  this account instead and associate your social accounts on
-  your personal account page.
-`;
 
 const SignInGoogleBase = (props) => {
 
@@ -47,7 +40,9 @@ const SignInGoogleBase = (props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <button type="submit">Sign In with Google</button>
+      <Button  type={'submit'} variant="outlined" color="primary" className={props.classes.button}>
+        Sign In with Google
+      </Button>
 
       {error && <p>{error.message}</p>}
     </form>
