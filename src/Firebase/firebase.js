@@ -12,7 +12,7 @@ const config = {
 };
 
 class Firebase {
-  constructor(){
+  constructor() {
     app.initializeApp(config);
 
     this.auth = app.auth();
@@ -74,10 +74,14 @@ class Firebase {
       }
     });
 
-
   // *** User API ***
   user = uid => this.db.ref(`users/${uid}`);
   users = () => this.db.ref('users');
+
+  // *** Todos api *** //
+
+  ideas = (userId) => this.db.ref(`ideas/${userId}`);
+  idea = (userId, todoId) => this.db.ref(`ideas/${userId}/${todoId}`);
 }
 
 export default Firebase;
