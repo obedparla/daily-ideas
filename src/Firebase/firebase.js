@@ -80,11 +80,10 @@ class Firebase {
 
   // *** Todos api *** //
 
-  ideas = (userId, date) => this.db.ref(`ideas/${userId}/${date}`);
-  ideaTitle = (userId, date, title) =>
-    this.db.ref(`ideas/${userId}/${date}/title`);
+  ideas = (userId, date) => this.db.ref(`ideas/${userId}/${date}/ideas`);
+  ideaTitle = (userId, date) => this.db.ref(`ideas/${userId}/${date}/title`);
   idea = (userId, date, ideaId) =>
-    this.db.ref(`ideas/${userId}/${date}/${ideaId}`);
+    this.db.ref(`ideas/${userId}/${date}/ideas/${ideaId}`);
 }
 
 export default Firebase;
