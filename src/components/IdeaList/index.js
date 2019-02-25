@@ -52,6 +52,8 @@ const IdeaList = props => {
         }));
         setIdeaList([...ideasList]);
         setLoading(false);
+      } else {
+        setLoading(false);
       }
     });
 
