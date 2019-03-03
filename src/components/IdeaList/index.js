@@ -1,16 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 
-import CommentIcon from "@material-ui/icons/Comment";
 import { Add as AddIcon, Delete as DeleteIcon } from "@material-ui/icons";
 import {
-  Checkbox,
   Fab,
   Grid,
   IconButton,
   List,
   ListItem,
-  ListItemSecondaryAction,
   ListItemText,
   Paper,
   TextField,
@@ -28,7 +25,6 @@ const IdeaList = props => {
   const { classes } = props;
 
   const [ideasList, setIdeaList] = useState([]);
-  const [checked, setChecked] = useState([0]);
   const [idea, setIdea] = useState("");
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(true);
@@ -44,7 +40,7 @@ const IdeaList = props => {
   useEffect(() => {
     firebaseIdeas.on("value", snapshot => {
       const ideas = snapshot.val();
-
+      console.log("ideas", ideas);
       if (ideas) {
         // Populate the list by going through the data we get from firebase db
         const ideasList = Object.keys(ideas).map(key => ({
@@ -55,6 +51,7 @@ const IdeaList = props => {
         setLoading(false);
       } else {
         setLoading(false);
+        setIdeaList([]);
       }
     });
 
@@ -78,17 +75,6 @@ const IdeaList = props => {
     };
   }, []);
 
-  const handleToggle = id => () => {
-    const currentIndex = checked.indexOf(id);
-    const newChecked = [...checked];
-
-    currentIndex === -1
-      ? newChecked.push(id)
-      : newChecked.splice(currentIndex, 1);
-
-    setChecked(newChecked);
-  };
-
   const handleChange = event => {
     setIdea(event.target.value);
   };
@@ -102,14 +88,9 @@ const IdeaList = props => {
     setIdea("");
   };
 
-  // Delete the checked items, no need to update state as useEffect does it.
-  const handleDelete = () => {
-    ideasList.forEach(idea => {
-      if (checked.includes(idea.id)) {
-        firebase.idea(userId, currentDate, idea.id).remove();
-      }
-    });
-  };
+  // Delete an item, no need to update state as useEffect does it.
+  const handleDelete = ideaId =>
+    firebase.idea(userId, currentDate, ideaId).remove();
 
   const handleTitleChange = e => {
     const value = e.target.value;
@@ -134,28 +115,22 @@ const IdeaList = props => {
               style={{ border: "none", fontSize: "28px" }}
             />
             <div>Today</div>
-            {ideasList.map((idea, index) => (
+            {ideasList.map(idea => (
               <Paper
                 key={idea.id}
                 className={classes.paper}
                 elevation={2}
                 style={{ textAlign: "center" }}
               >
-                <ListItem
-                  role={undefined}
-                  dense
-                  button
-                  onClick={handleToggle(idea.id)}
-                >
-                  <Checkbox
-                    checked={checked.includes(idea.id)}
-                    tabIndex={-1}
-                    disableRipple
-                  />
+                <ListItem role={undefined} dense button>
                   <ListItemText primary={idea.text} />
-                  <ListItemSecondaryAction>
-                    <IconButton aria-label="Comments" />
-                  </ListItemSecondaryAction>
+                  <IconButton
+                    aria-label="Delete"
+                    className={classes.margin}
+                    onClick={() => handleDelete(idea.id)}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
                 </ListItem>
               </Paper>
             ))}
@@ -189,13 +164,6 @@ const IdeaList = props => {
                   margin="normal"
                   variant="outlined"
                 />
-                <Fab
-                  aria-label="Delete"
-                  className={classes.button}
-                  onClick={handleDelete}
-                >
-                  <DeleteIcon />
-                </Fab>
               </Grid>
             </Paper>
           </form>
