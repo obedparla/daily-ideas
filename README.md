@@ -1,15 +1,19 @@
-Record your daily ideas in an easy to sue app.
+# Daily Ideas (in progress)
+Record your daily ideas in an easy to use app.
 
-# Daily Ideas app
+This is a serverless, React Hooks only app with a focus on usability and simplicity.
 
-A React-Hooks-Only app! No classes, no old grumpy state, only stateful functions! Wohoo!
-
+## Technologies
+* React
+* A React Hooks only! No classes, no old grumpy state, only stateful functions!
+* React Router
+* Material-UI, because why wouldn't you
+* Styled Components, because it rocks and Material-UI it's not bootstrap(?).
+* Firebase, because simplicity rules
+* Prettier, because it's the best thing since peanut-butter
 
 ## How to run the app
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* See the `.env.sample` file and set up the keys.
+* In the project directory just run `npm i && npm start`
+* Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
