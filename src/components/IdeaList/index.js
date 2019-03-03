@@ -35,12 +35,12 @@ const IdeaList = props => {
 
   const firebaseIdeas = firebase.ideas(userId, currentDate);
   const firebaseTitle = firebase.ideaTitle(userId, currentDate);
-  const firebaseIdeaDate = firebase.ideaDates(userId);
+  const firebaseIdeaStats = firebase.ideaStats(userId, currentDate);
+  const firebaseIdeasCount = firebase.ideaStatsCount(userId, currentDate);
 
   useEffect(() => {
     firebaseIdeas.on("value", snapshot => {
       const ideas = snapshot.val();
-      console.log("ideas", ideas);
       if (ideas) {
         // Populate the list by going through the data we get from firebase db
         const ideasList = Object.keys(ideas).map(key => ({
@@ -49,6 +49,7 @@ const IdeaList = props => {
         }));
         setIdeaList([...ideasList]);
         setLoading(false);
+        firebaseIdeasCount.set(ideasList.length);
       } else {
         setLoading(false);
         setIdeaList([]);
@@ -57,15 +58,14 @@ const IdeaList = props => {
 
     firebaseTitle.once("value", snapshot => setTitle(snapshot.val()));
     // Save the current date in a different object. Useful for filtering, pagination, etc
-    firebaseIdeaDate.limitToFirst(1).once("value", snapshot => {
-      const ideasDateObj = snapshot.val();
-      const dateObj =
-        ideasDateObj && ideasDateObj[Object.keys(ideasDateObj)[0]];
-      // Only add the current date once.
-      if (!dateObj || dateObj.date !== currentDate) {
-        firebaseIdeaDate.push({
+    firebaseIdeaStats.once("value", snapshot => {
+      const ideaStatsObj = snapshot.val();
+      // Onlyn add the current date once.
+      if (ideaStatsObj.date !== currentDate) {
+        firebaseIdeaStats.set({
           createdAt: firebase.serverValue.TIMESTAMP,
-          date: currentDate
+          date: currentDate,
+          ideasCount: 0
         });
       }
     });
@@ -83,7 +83,7 @@ const IdeaList = props => {
     event.preventDefault();
     firebaseIdeas.push({
       text: idea,
-      date: firebase.serverValue.TIMESTAMP
+      createdAt: firebase.serverValue.TIMESTAMP
     });
     setIdea("");
   };

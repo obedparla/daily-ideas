@@ -88,7 +88,9 @@ class Firebase {
     this.db.ref(`${this.userIdeaUrl(userId, date)}/title`);
   idea = (userId, date, ideaId) =>
     this.db.ref(`${this.userIdeaUrl(userId, date)}/ideas/${ideaId}`);
-  ideaDates = userId => this.db.ref(`ideaDates/${userId}`);
+  ideaStats = (userId, date) => this.db.ref(`ideaStats/${userId}/${date}`);
+  ideaStatsCount = (userId, date) =>
+    this.db.ref(`ideaStats/${userId}/${date}/ideasCount`);
 }
 
 export default Firebase;
