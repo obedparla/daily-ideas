@@ -18,6 +18,7 @@ class Firebase {
     this.auth = app.auth();
     this.db = app.database();
     this.app = app;
+    this.serverValue = app.database.ServerValue;
 
     /* Social Sign In Method Provider */
     this.googleProvider = new app.auth.GoogleAuthProvider();
@@ -78,12 +79,16 @@ class Firebase {
   user = uid => this.db.ref(`users/${uid}`);
   users = () => this.db.ref("users");
 
-  // *** Todos api *** //
+  // *** Ideas api *** //
 
-  ideas = (userId, date) => this.db.ref(`ideas/${userId}/${date}/ideas`);
-  ideaTitle = (userId, date) => this.db.ref(`ideas/${userId}/${date}/title`);
+  userIdeaUrl = (userId, date) => `ideas/${userId}/${date}`;
+  ideas = (userId, date) =>
+    this.db.ref(`${this.userIdeaUrl(userId, date)}/ideas`);
+  ideaTitle = (userId, date) =>
+    this.db.ref(`${this.userIdeaUrl(userId, date)}/title`);
   idea = (userId, date, ideaId) =>
-    this.db.ref(`ideas/${userId}/${date}/ideas/${ideaId}`);
+    this.db.ref(`${this.userIdeaUrl(userId, date)}/ideas/${ideaId}`);
+  ideaDates = userId => this.db.ref(`ideaDates/${userId}`);
 }
 
 export default Firebase;

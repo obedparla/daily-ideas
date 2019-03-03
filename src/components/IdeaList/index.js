@@ -39,6 +39,7 @@ const IdeaList = props => {
 
   const firebaseIdeas = firebase.ideas(userId, currentDate);
   const firebaseTitle = firebase.ideaTitle(userId, currentDate);
+  const firebaseIdeaDate = firebase.ideaDates(userId);
 
   useEffect(() => {
     firebaseIdeas.on("value", snapshot => {
@@ -58,10 +59,22 @@ const IdeaList = props => {
     });
 
     firebaseTitle.once("value", snapshot => setTitle(snapshot.val()));
+    // Save the current date in a different object. Useful for filtering, pagination, etc
+    firebaseIdeaDate.limitToFirst(1).once("value", snapshot => {
+      const ideasDateObj = snapshot.val();
+      const dateObj =
+        ideasDateObj && ideasDateObj[Object.keys(ideasDateObj)[0]];
+      // Only add the current date once.
+      if (!dateObj || dateObj.date !== currentDate) {
+        firebaseIdeaDate.push({
+          createdAt: firebase.serverValue.TIMESTAMP,
+          date: currentDate
+        });
+      }
+    });
 
     return () => {
       firebaseIdeas.off();
-      firebaseTitle.off();
     };
   }, []);
 
@@ -82,7 +95,10 @@ const IdeaList = props => {
 
   const handleIdeaSubmit = event => {
     event.preventDefault();
-    firebaseIdeas.push({ text: idea, date: new Date().getTime() });
+    firebaseIdeas.push({
+      text: idea,
+      date: firebase.serverValue.TIMESTAMP
+    });
     setIdea("");
   };
 
@@ -113,10 +129,11 @@ const IdeaList = props => {
             <input
               type="text"
               value={title}
-              placeholder={"Title"}
+              placeholder={"Ideas about:"}
               onChange={handleTitleChange}
               style={{ border: "none", fontSize: "28px" }}
             />
+            <div>Today</div>
             {ideasList.map((idea, index) => (
               <Paper
                 key={idea.id}
@@ -137,9 +154,7 @@ const IdeaList = props => {
                   />
                   <ListItemText primary={idea.text} />
                   <ListItemSecondaryAction>
-                    <IconButton aria-label="Comments">
-                      <CommentIcon />
-                    </IconButton>
+                    <IconButton aria-label="Comments" />
                   </ListItemSecondaryAction>
                 </ListItem>
               </Paper>
