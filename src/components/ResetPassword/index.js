@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 
-import { withFirebase } from '../../Firebase';
-import * as ROUTES from '../../constants/routes';
+import { withFirebase } from "../../Firebase";
+import * as ROUTES from "../../constants/routes";
 
 const PasswordForgetPage = () => (
   <div>
@@ -12,15 +12,15 @@ const PasswordForgetPage = () => (
 );
 
 const INITIAL_STATE = {
-  email: '',
-  error: null,
+  email: "",
+  error: null
 };
 
-const PasswordForgetForm = (props) => {
+const PasswordForgetForm = props => {
   const [formState, setFormState] = useState({ ...INITIAL_STATE });
   const firebase = useContext(withFirebase);
   const [error, setError] = useState(null);
-  const isInvalid = formState.email === '';
+  const isInvalid = formState.email === "";
 
   const onSubmit = event => {
     firebase

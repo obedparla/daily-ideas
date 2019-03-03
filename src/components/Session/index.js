@@ -1,2 +1,2 @@
-export * from './with-authentication';
-export * from './with-authorization';
+export * from "./with-authentication";
+export * from "./with-authorization";

@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { Link, withRouter } from 'react-router-dom';
-import * as ROUTES from '../../constants/routes';
-import { withFirebase } from '../../Firebase';
+import React, { useContext, useState } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { Link, withRouter } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
+import { withFirebase } from "../../Firebase";
 
 const SignUpPage = props => (
   <div>
@@ -19,10 +19,10 @@ export const SignUpLink = () => (
 );
 
 const INITIAL_STATE = {
-  username: '',
-  email: '',
-  passwordOne: '',
-  passwordTwo: ''
+  username: "",
+  email: "",
+  passwordOne: "",
+  passwordTwo: ""
 };
 
 const SignUpFunc = props => {
@@ -36,9 +36,9 @@ const SignUpFunc = props => {
 
   const isInvalid =
     passwordOne !== passwordTwo ||
-    passwordOne === '' ||
-    email === '' ||
-    username === '';
+    passwordOne === "" ||
+    email === "" ||
+    username === "";
 
   const onChange = name => event => {
     setFormState({ ...formState, [name]: event.target.value });
@@ -73,7 +73,7 @@ const SignUpFunc = props => {
           label="Full Name"
           className={classes.textField}
           value={formState.username}
-          onChange={onChange('username')}
+          onChange={onChange("username")}
           margin="normal"
         />
         <TextField
@@ -82,7 +82,7 @@ const SignUpFunc = props => {
           label="Email Address"
           className={classes.textField}
           value={formState.email}
-          onChange={onChange('email')}
+          onChange={onChange("email")}
           margin="normal"
         />
         <TextField
@@ -92,7 +92,7 @@ const SignUpFunc = props => {
           type="password"
           className={classes.textField}
           value={formState.passwordOne}
-          onChange={onChange('passwordOne')}
+          onChange={onChange("passwordOne")}
           margin="normal"
         />
         <TextField
@@ -102,14 +102,14 @@ const SignUpFunc = props => {
           type="password"
           className={classes.textField}
           value={formState.passwordTwo}
-          onChange={onChange('passwordTwo')}
+          onChange={onChange("passwordTwo")}
           margin="normal"
         />
       </div>
       <div>
         <Button
           disabled={isInvalid}
-          type={'submit'}
+          type={"submit"}
           variant="outlined"
           color="primary"
           className={classes.button}
@@ -126,8 +126,8 @@ const SignUpForm = withRouter(SignUpFunc);
 
 const styles = theme => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap'
+    display: "flex",
+    flexWrap: "wrap"
   },
   textField: {
     margin: theme.spacing.unit,

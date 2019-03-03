@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import withFirebase from '../../Firebase/context';
+import React, { useContext, useEffect, useState } from "react";
+import withFirebase from "../../Firebase/context";
 
 const AuthUserContext = React.createContext(null);
 
-const withAuthentication = Component => (props) => {
-
-  const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('authUser')));
+const withAuthentication = Component => props => {
+  const [authUser, setAuthUser] = useState(
+    JSON.parse(localStorage.getItem("authUser"))
+  );
   const firebase = useContext(withFirebase);
 
   useEffect(() => {
@@ -14,10 +15,9 @@ const withAuthentication = Component => (props) => {
     // const firebaseListener =
 
     firebase.auth.onAuthStateChanged(newAuthUser => {
-        localStorage.setItem('authUser', JSON.stringify(authUser));
-        newAuthUser ? setAuthUser(newAuthUser) : setAuthUser(null);
-      }
-    );
+      localStorage.setItem("authUser", JSON.stringify(authUser));
+      newAuthUser ? setAuthUser(newAuthUser) : setAuthUser(null);
+    });
 
     // Stop the listener
     // return firebaseListener();
@@ -30,8 +30,4 @@ const withAuthentication = Component => (props) => {
   );
 };
 
-export {
-  withAuthentication,
-  AuthUserContext,
-};
-
+export { withAuthentication, AuthUserContext };
