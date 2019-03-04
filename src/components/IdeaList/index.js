@@ -145,25 +145,27 @@ const IdeaList = props => {
             <Paper
               className={classes.paper}
               elevation={1}
-              style={{ textAlign: "center" }}
+              style={{ textAlign: "center", marginBottom: "24px" }}
             >
               <Grid container justify="center" alignItems={"center"}>
-                <Fab
-                  color="primary"
-                  aria-label="Add"
-                  className={classes.button}
-                >
-                  <AddIcon />
-                </Fab>
                 <TextField
                   id="outlined-name"
                   label="Ideas"
+                  fullWidth
                   className={classes.textField}
                   value={idea}
                   onChange={handleChange}
                   margin="normal"
                   variant="outlined"
                 />
+                {ideasList.length < 10 ? (
+                  <>
+                    <div>You've added {ideasList.length} ideas so far!</div>
+                    <div>Try adding {10 - ideasList.length} more!</div>
+                  </>
+                ) : (
+                  <div>You've added {ideasList.length} ideas, well done!</div>
+                )}
               </Grid>
             </Paper>
           </form>
