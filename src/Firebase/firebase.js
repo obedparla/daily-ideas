@@ -81,6 +81,7 @@ class Firebase {
 
   // *** Ideas api *** //
 
+  // Idea store
   userIdeaUrl = (userId, date) => `ideas/${userId}/${date}`;
   ideas = (userId, date) =>
     this.db.ref(`${this.userIdeaUrl(userId, date)}/ideas`);
@@ -88,7 +89,10 @@ class Firebase {
     this.db.ref(`${this.userIdeaUrl(userId, date)}/title`);
   idea = (userId, date, ideaId) =>
     this.db.ref(`${this.userIdeaUrl(userId, date)}/ideas/${ideaId}`);
+
+  // Stats
   ideaStats = (userId, date) => this.db.ref(`ideaStats/${userId}/${date}`);
+  userStats = userId => this.db.ref(`ideaStats/${userId}`);
   ideaStatsCount = (userId, date) =>
     this.db.ref(`ideaStats/${userId}/${date}/ideasCount`);
 }

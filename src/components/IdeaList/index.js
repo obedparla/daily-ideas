@@ -61,7 +61,7 @@ const IdeaList = props => {
     firebaseIdeaStats.once("value", snapshot => {
       const ideaStatsObj = snapshot.val();
       // Onlyn add the current date once.
-      if (ideaStatsObj.date !== currentDate) {
+      if (ideaStatsObj && ideaStatsObj.date !== currentDate) {
         firebaseIdeaStats.set({
           createdAt: firebase.serverValue.TIMESTAMP,
           date: currentDate,

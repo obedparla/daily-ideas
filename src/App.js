@@ -13,6 +13,7 @@ import SignIn from "./components/SignIn";
 import { withAuthentication } from "./components/Session";
 import PasswordForgetPage from "./components/ResetPassword";
 import AdminPage from "./components/Admin";
+import AccountPage from "./components/Account";
 
 const App = props => {
   const { classes } = props;
@@ -34,8 +35,7 @@ const App = props => {
         <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
 
         <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-        {/*<Route path={ROUTES.HOME} component={HomePage} />*/}
-        {/*<Route path={ROUTES.ACCOUNT} component={AccountPage} />*/}
+        <Route path={ROUTES.ACCOUNT} component={AccountPage} />
         <Route path={ROUTES.ADMIN} component={AdminPage} />
       </div>
     </Router>
