@@ -11,7 +11,8 @@ import {
   ListItemText,
   Paper,
   TextField,
-  CircularProgress
+  CircularProgress,
+  Typography
 } from "@material-ui/core";
 
 import { AuthUserContext, withAuthorization } from "../Session";
@@ -107,14 +108,21 @@ const IdeaList = props => {
       ) : (
         <>
           <List className={classes.root}>
-            <input
-              type="text"
+            <TextField
               value={title}
-              placeholder={"Ideas about:"}
+              label="Title"
+              style={{ margin: 8 }}
+              inputProps={{ style: { fontSize: "28px" } }}
+              placeholder="Ideas about:"
+              fullWidth
+              margin="normal"
               onChange={handleTitleChange}
-              style={{ border: "none", fontSize: "28px" }}
+              InputLabelProps={{
+                shrink: true
+              }}
             />
-            <div>Today</div>
+
+            <Typography variant="h3">Today</Typography>
             {ideasList.map(idea => (
               <Paper
                 key={idea.id}
