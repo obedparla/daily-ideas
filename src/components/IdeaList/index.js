@@ -26,6 +26,7 @@ const IdeaList = props => {
   const { classes } = props;
 
   const [ideasList, setIdeaList] = useState([]);
+  const [deletedIdeas, setDeletedIdeas] = useState([]);
   const [idea, setIdea] = useState("");
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(true);
@@ -39,14 +40,17 @@ const IdeaList = props => {
   const firebaseIdeaStats = firebase.ideaStats(userId, currentDate);
   const firebaseIdeasCount = firebase.ideaStatsCount(userId, currentDate);
 
+  console.log(ideasList);
   useEffect(() => {
     firebaseIdeas.on("value", snapshot => {
       const ideas = snapshot.val();
       if (ideas) {
+        console.log(ideas);
         // Populate the list by going through the data we get from firebase db
         const ideasList = Object.keys(ideas).map(key => ({
+          id: key,
           text: ideas[key].text,
-          id: key
+          createdAt: ideas[key].createdAt
         }));
         setIdeaList([...ideasList]);
         setLoading(false);
@@ -82,16 +86,27 @@ const IdeaList = props => {
 
   const handleIdeaSubmit = event => {
     event.preventDefault();
-    firebaseIdeas.push({
-      text: idea,
-      createdAt: firebase.serverValue.TIMESTAMP
-    });
-    setIdea("");
+    if (idea) {
+      firebaseIdeas.push({
+        text: idea,
+        createdAt: firebase.serverValue.TIMESTAMP
+      });
+      setIdea("");
+    }
   };
 
   // Delete an item, no need to update state as useEffect does it.
-  const handleDelete = ideaId =>
-    firebase.idea(userId, currentDate, ideaId).remove();
+  const handleDelete = idea => {
+    setDeletedIdeas([...deletedIdeas, { ...idea }]);
+    setTimeout(
+      () =>
+        setDeletedIdeas(
+          deletedIdeas.filter(deletedIdea => deletedIdea.id !== idea.id)
+        ),
+      5000
+    );
+    firebase.idea(userId, currentDate, idea.id).remove();
+  };
 
   const handleTitleChange = e => {
     const value = e.target.value;
@@ -99,6 +114,13 @@ const IdeaList = props => {
     // Debounce the function call
     clearTimeout(titleTimeout);
     titleTimeout = setTimeout(() => firebaseTitle.set(value), 1000);
+  };
+
+  const handleUndoDelete = () => {
+    const popped = deletedIdeas.pop();
+    firebaseIdeas.push({ text: popped.text, createdAt: popped.createdAt });
+
+    setDeletedIdeas([...deletedIdeas]);
   };
 
   return (
@@ -123,7 +145,7 @@ const IdeaList = props => {
             />
 
             <Typography variant="h3">Today</Typography>
-            {ideasList.map(idea => (
+            {ideasList.map((idea, index) => (
               <Paper
                 key={idea.id}
                 className={classes.paper}
@@ -135,7 +157,7 @@ const IdeaList = props => {
                   <IconButton
                     aria-label="Delete"
                     className={classes.margin}
-                    onClick={() => handleDelete(idea.id)}
+                    onClick={() => handleDelete(idea, index)}
                   >
                     <DeleteIcon fontSize="small" />
                   </IconButton>
@@ -143,6 +165,10 @@ const IdeaList = props => {
               </Paper>
             ))}
           </List>
+
+          {deletedIdeas.length > 0 && (
+            <button onClick={handleUndoDelete}>Undo</button>
+          )}
 
           <form
             className={classes.container}
