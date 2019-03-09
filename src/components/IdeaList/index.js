@@ -1,23 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import _findIndex from "lodash/findIndex";
-
-import { Delete as DeleteIcon } from "@material-ui/icons";
-import {
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  Paper,
-  TextField,
-  CircularProgress,
-  Typography,
-  Button,
-} from "@material-ui/core";
+import { CircularProgress, Typography, Button } from "@material-ui/core";
 
 import { AuthUserContext, withAuthorization } from "../Session";
 import withFirebase from "../../Firebase/context";
 import { getCurrentDate } from "../../utils/dates";
+import { NewIdeaForm, IdeaListComp } from "./components";
 
 const currentDate = getCurrentDate();
 let titleTimeout;
@@ -60,7 +49,7 @@ const IdeaList = props => {
     // Save the current date in a different object. Useful for filtering, pagination, etc
     firebaseIdeaStats.once("value", snapshot => {
       const ideaStatsObj = snapshot.val();
-      // Onlyn add the current date once.
+      // Only add the current date once.
       if (ideaStatsObj && ideaStatsObj.date !== currentDate) {
         firebaseIdeaStats.set({
           createdAt: firebase.serverValue.TIMESTAMP,
@@ -93,6 +82,7 @@ const IdeaList = props => {
   // Delete an item, no need to update state as useEffect does it.
   const handleDelete = idea => {
     setDeletedIdeas([...deletedIdeas, { ...idea }]);
+    console.log("deletedIdeas", deletedIdeas);
     setTimeout(
       () =>
         setDeletedIdeas(
@@ -112,9 +102,8 @@ const IdeaList = props => {
   };
 
   const handleUndoDelete = () => {
-    const popped = deletedIdeas.pop();
+    const popped = deletedIdeas.shift();
     firebaseIdeas.push({ text: popped.text, createdAt: popped.createdAt });
-
     setDeletedIdeas([...deletedIdeas]);
   };
 
@@ -131,53 +120,14 @@ const IdeaList = props => {
         <CircularProgress />
       ) : (
         <>
-          <List className={classes.root}>
-            <Typography variant="h4" gutterBottom>
-              Write your Daily ideas
-            </Typography>
-            <TextField
-              value={title}
-              label="Title"
-              style={{ margin: 8 }}
-              inputProps={{ style: { fontSize: "28px" } }}
-              placeholder="Ideas about:"
-              fullWidth
-              margin="normal"
-              onChange={handleTitleChange}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-
-            {ideasList.map((idea, index) => (
-              <Paper
-                key={idea.id}
-                className={classes.paper}
-                elevation={2}
-                style={{ textAlign: "center" }}
-              >
-                <ListItem dense button>
-                  <TextField
-                    id={idea.id}
-                    fullWidth
-                    className={classes.textField}
-                    value={idea.text}
-                    margin="normal"
-                    variant="outlined"
-                    onChange={handleIdeaEdit}
-                  />
-                  <IconButton
-                    aria-label="Delete"
-                    className={classes.margin}
-                    onClick={() => handleDelete(idea, index)}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                </ListItem>
-              </Paper>
-            ))}
-          </List>
-
+          <IdeaListComp
+            classes={classes}
+            title={title}
+            ideasList={ideasList}
+            handleTitleChange={handleTitleChange}
+            handleIdeaEdit={handleIdeaEdit}
+            handleDelete={handleDelete}
+          />
           {deletedIdeas.length > 0 && (
             <Typography align={"right"} gutterBottom>
               <Button variant="outlined" onClick={handleUndoDelete}>
@@ -186,39 +136,13 @@ const IdeaList = props => {
             </Typography>
           )}
 
-          <form
-            className={classes.container}
-            noValidate
-            autoComplete="off"
-            onSubmit={handleIdeaSubmit}
-          >
-            <Paper
-              className={classes.paper}
-              elevation={1}
-              style={{ textAlign: "center", marginBottom: "24px" }}
-            >
-              <Grid container justify="center" alignItems={"center"}>
-                <TextField
-                  id="outlined-name"
-                  label="Ideas"
-                  fullWidth
-                  className={classes.textField}
-                  value={idea}
-                  onChange={handleChange}
-                  margin="normal"
-                  variant="outlined"
-                />
-                {ideasList.length < 10 ? (
-                  <>
-                    <div>You've added {ideasList.length} ideas so far!</div>
-                    <div>Try adding {10 - ideasList.length} more!</div>
-                  </>
-                ) : (
-                  <div>You've added {ideasList.length} ideas, well done!</div>
-                )}
-              </Grid>
-            </Paper>
-          </form>
+          <NewIdeaForm
+            classes={classes}
+            idea={idea}
+            ideasList={ideasList}
+            handleIdeaSubmit={handleIdeaSubmit}
+            handleChange={handleChange}
+          />
         </>
       )}
     </>
