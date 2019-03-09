@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
+import _findIndex from "lodash/findIndex";
 
-import { Add as AddIcon, Delete as DeleteIcon } from "@material-ui/icons";
+import { Delete as DeleteIcon } from "@material-ui/icons";
 import {
-  Fab,
   Grid,
   IconButton,
   List,
   ListItem,
-  ListItemText,
   Paper,
   TextField,
   CircularProgress,
-  Typography
+  Typography,
+  Button,
 } from "@material-ui/core";
 
 import { AuthUserContext, withAuthorization } from "../Session";
@@ -65,7 +65,7 @@ const IdeaList = props => {
         firebaseIdeaStats.set({
           createdAt: firebase.serverValue.TIMESTAMP,
           date: currentDate,
-          ideasCount: 0
+          ideasCount: 0,
         });
       }
     });
@@ -84,7 +84,7 @@ const IdeaList = props => {
     if (idea) {
       firebaseIdeas.push({
         text: idea,
-        createdAt: firebase.serverValue.TIMESTAMP
+        createdAt: firebase.serverValue.TIMESTAMP,
       });
       setIdea("");
     }
@@ -118,6 +118,13 @@ const IdeaList = props => {
     setDeletedIdeas([...deletedIdeas]);
   };
 
+  const handleIdeaEdit = e => {
+    const index = _findIndex(ideasList, idea => idea.id === e.target.id);
+    firebase
+      .idea(userId, currentDate, e.target.id)
+      .set({ ...ideasList[index], text: e.target.value });
+  };
+
   return (
     <>
       {loading ? (
@@ -125,6 +132,9 @@ const IdeaList = props => {
       ) : (
         <>
           <List className={classes.root}>
+            <Typography variant="h4" gutterBottom>
+              Write your Daily ideas
+            </Typography>
             <TextField
               value={title}
               label="Title"
@@ -135,11 +145,10 @@ const IdeaList = props => {
               margin="normal"
               onChange={handleTitleChange}
               InputLabelProps={{
-                shrink: true
+                shrink: true,
               }}
             />
 
-            <Typography variant="h3">Today</Typography>
             {ideasList.map((idea, index) => (
               <Paper
                 key={idea.id}
@@ -147,8 +156,16 @@ const IdeaList = props => {
                 elevation={2}
                 style={{ textAlign: "center" }}
               >
-                <ListItem role={undefined} dense button>
-                  <ListItemText primary={idea.text} />
+                <ListItem dense button>
+                  <TextField
+                    id={idea.id}
+                    fullWidth
+                    className={classes.textField}
+                    value={idea.text}
+                    margin="normal"
+                    variant="outlined"
+                    onChange={handleIdeaEdit}
+                  />
                   <IconButton
                     aria-label="Delete"
                     className={classes.margin}
@@ -162,7 +179,11 @@ const IdeaList = props => {
           </List>
 
           {deletedIdeas.length > 0 && (
-            <button onClick={handleUndoDelete}>Undo</button>
+            <Typography align={"right"} gutterBottom>
+              <Button variant="outlined" onClick={handleUndoDelete}>
+                Undo
+              </Button>
+            </Typography>
           )}
 
           <form
@@ -206,15 +227,15 @@ const IdeaList = props => {
 
 const styles = theme => ({
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   textField: {
     marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
   dense: {
-    marginTop: 16
-  }
+    marginTop: 16,
+  },
 });
 
 export default withStyles(styles)(
