@@ -40,24 +40,19 @@ const IdeaList = props => {
   const firebaseIdeaStats = firebase.ideaStats(userId, currentDate);
   const firebaseIdeasCount = firebase.ideaStatsCount(userId, currentDate);
 
-  console.log(ideasList);
   useEffect(() => {
-    firebaseIdeas.on("value", snapshot => {
-      const ideas = snapshot.val();
-      if (ideas) {
-        console.log(ideas);
-        // Populate the list by going through the data we get from firebase db
-        const ideasList = Object.keys(ideas).map(key => ({
-          id: key,
-          text: ideas[key].text,
-          createdAt: ideas[key].createdAt
-        }));
-        setIdeaList([...ideasList]);
+    firebaseIdeas.orderByChild("createdAt").on("value", snapshot => {
+      let ideaList = [];
+      snapshot.forEach(function(child) {
+        ideaList.push({ ...child.val(), id: child.key });
+      });
+      if (ideaList.length > 0) {
+        setIdeaList([...ideaList]);
+        firebaseIdeasCount.set(ideaList.length);
         setLoading(false);
-        firebaseIdeasCount.set(ideasList.length);
       } else {
-        setLoading(false);
         setIdeaList([]);
+        setLoading(false);
       }
     });
 
