@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { AuthUserContext } from "../Session";
 import * as ROUTES from "../../constants/routes";
-import SignOutButton from "../SignOut";
+import SignOutButton from "../authorization/SignOut";
 
 const Navigation = () => {
   const authUser = useContext(AuthUserContext);

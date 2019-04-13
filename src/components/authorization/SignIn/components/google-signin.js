@@ -1,8 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { useContext, useState } from "react";
-import withFirebase from "../../../Firebase/context";
-import * as ROUTES from "../../../constants/routes";
+import withFirebase from "../../../../Firebase/context";
+import * as ROUTES from "../../../../constants/routes";
 import {
   ERROR_CODE_ACCOUNT_EXISTS,
   ERROR_MSG_ACCOUNT_EXISTS,

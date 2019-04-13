@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import withFirebase from "../../../Firebase/context";
-import * as ROUTES from "../../../constants/routes";
+import withFirebase from "../../../../Firebase/context";
+import * as ROUTES from "../../../../constants/routes";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";

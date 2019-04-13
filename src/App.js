@@ -8,10 +8,10 @@ import { withStyles } from "@material-ui/core";
 
 import * as ROUTES from "./constants/routes";
 import IdeaList from "./components/IdeaList";
-import SignUp from "./components/SignUp";
-import SignIn from "./components/SignIn";
+import SignUp from "./components/authorization/SignUp";
+import SignIn from "./components/authorization/SignIn";
 import { AuthUserContext, withAuthentication } from "./components/Session";
-import PasswordForgetPage from "./components/ResetPassword";
+import PasswordForgetPage from "./components/authorization/ResetPassword";
 import AdminPage from "./components/Admin";
 import AccountPage from "./components/Account";
 import LandingPage from "./components/Landing";

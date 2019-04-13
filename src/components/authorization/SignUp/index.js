@@ -3,17 +3,12 @@ import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link, withRouter } from "react-router-dom";
-import * as ROUTES from "../../constants/routes";
-import { withFirebase } from "../../Firebase";
+import * as ROUTES from "../../../constants/routes";
+import { withFirebase } from "../../../Firebase";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-
-export const SignUpLink = () => (
-  <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-  </p>
-);
+import { authModalStyles } from "../styles";
 
 const INITIAL_STATE = {
   username: "",
@@ -30,12 +25,6 @@ const SignUpPage = props => {
   const firebase = useContext(withFirebase);
 
   const { username, email, passwordOne, passwordTwo } = formState;
-
-  const isInvalid =
-    passwordOne !== passwordTwo ||
-    passwordOne === "" ||
-    email === "" ||
-    username === "";
 
   const onChange = name => event => {
     setFormState({ ...formState, [name]: event.target.value });
@@ -125,6 +114,17 @@ const SignUpPage = props => {
               Sign Up
             </Button>
           </div>
+          <Link to={ROUTES.SIGN_IN}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="secondary"
+              className={classes.signUpEmail}
+            >
+              Sign In instead
+            </Button>
+          </Link>
           {error && <p>{error.message}</p>}
         </form>
       </Paper>
@@ -132,44 +132,4 @@ const SignUpPage = props => {
   );
 };
 
-const styles = theme => ({
-  main: {
-    width: "auto",
-    display: "block", // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 8,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`,
-  },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-  },
-  submit: {
-    marginTop: theme.spacing.unit * 2,
-  },
-  facebook: {
-    marginTop: theme.spacing.unit * 2,
-    background: "#3a579a",
-  },
-  google: {
-    marginTop: theme.spacing.unit * 2,
-    background: "#4285F4",
-  },
-});
-
-export default withStyles(styles)(withRouter(SignUpPage));
+export default withStyles(authModalStyles)(withRouter(SignUpPage));

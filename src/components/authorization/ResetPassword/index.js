@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { withFirebase } from "../../Firebase";
-import * as ROUTES from "../../constants/routes";
+import { withFirebase } from "../../../Firebase";
+import * as ROUTES from "../../../constants/routes";
 
 const PasswordForgetPage = () => (
   <div>
@@ -13,7 +13,7 @@ const PasswordForgetPage = () => (
 
 const INITIAL_STATE = {
   email: "",
-  error: null
+  error: null,
 };
 
 const PasswordForgetForm = props => {
