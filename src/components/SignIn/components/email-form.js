@@ -8,7 +8,7 @@ import React from "react";
 
 const INITIAL_STATE = {
   email: "",
-  passwordOne: ""
+  passwordOne: "",
 };
 
 const SignInFormFunc = props => {
@@ -42,7 +42,7 @@ const SignInFormFunc = props => {
   };
 
   return (
-    <form className={classes.container} onSubmit={onSubmit}>
+    <form className={classes.form} onSubmit={onSubmit}>
       <div>
         <TextField
           required
@@ -52,6 +52,7 @@ const SignInFormFunc = props => {
           value={formState.email}
           onChange={onChange("email")}
           margin="normal"
+          fullWidth
         />
         <TextField
           required
@@ -62,17 +63,18 @@ const SignInFormFunc = props => {
           value={formState.passwordOne}
           onChange={onChange("passwordOne")}
           margin="normal"
+          fullWidth
         />
       </div>
       <div>
         <Button
-          disabled={isInvalid}
-          type={"submit"}
-          variant="outlined"
+          type="submit"
+          fullWidth
+          variant="contained"
           color="primary"
-          className={classes.button}
+          className={classes.submit}
         >
-          Sign In
+          Sign in
         </Button>
       </div>
       {error && <p>{error.message}</p>}
