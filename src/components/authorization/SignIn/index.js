@@ -28,7 +28,7 @@ function SignIn(props) {
         <SingInFacebook {...props} />
 
         <Link to={ROUTES.SIGN_UP} className={classes.signUpEmail}>
-          <Button type="submit" fullWidth variant="contained" color="secondary">
+          <Button type="button" fullWidth variant="contained" color="secondary">
             Create an account
           </Button>
         </Link>

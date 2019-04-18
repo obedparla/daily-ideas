@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { withStyles, Button } from "@material-ui/core";
 
 import { AuthUserContext } from "../Session";
 import * as ROUTES from "../../constants/routes";
@@ -12,28 +13,26 @@ const Navigation = () => {
 };
 
 const NavigationAuth = () => (
-  <ul>
-    <li>
+  <>
+    <Button>
       <Link to={ROUTES.LANDING}>Home</Link>
-    </li>
-    <li>
+    </Button>
+    <Button>
       <Link to={ROUTES.ACCOUNT}>Account</Link>
-    </li>
-    <li>
+    </Button>
+    <Button>
       <Link to={ROUTES.ADMIN}>Admin</Link>
-    </li>
-    <li>
-      <SignOutButton />
-    </li>
-  </ul>
+    </Button>
+    <SignOutButton />
+  </>
 );
 
 const NavigationNonAuth = () => (
-  <ul>
-    <li>
+  <>
+    <Button>
       <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </li>
-  </ul>
+    </Button>
+  </>
 );
 
 export default Navigation;
