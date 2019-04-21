@@ -26,7 +26,7 @@ const NavigationAuth = () => (
 
 const NavigationNonAuth = () => (
   <>
-    <Button color="primary">
+    <Button color="inherit">
       <Link to={ROUTES.SIGN_IN}>Sign In</Link>
     </Button>
   </>

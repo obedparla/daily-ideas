@@ -15,13 +15,17 @@ import PasswordForgetPage from "./views/authorization/ResetPassword";
 import AdminPage from "./views/Admin";
 import AccountPage from "./views/Account";
 import LandingPage from "./views/Landing";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Main = styled("main")`
-  width: 80%;
-  max-width: 1200px;
-  margin: 40px auto;
-  overflow-x: hidden;
+  ${props =>
+    props.withMain &&
+    css`
+      width: 80%;
+      max-width: 1200px;
+      margin: 40px auto;
+      overflow-x: hidden;
+    `}
 `;
 
 const App = props => {
@@ -41,7 +45,7 @@ const App = props => {
           </Toolbar>
         </AppBar>
 
-        <Main>
+        <Main withMain={authUser}>
           {authUser ? (
             <>
               <Route exact path={ROUTES.LANDING} component={IdeaList} />
