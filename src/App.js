@@ -2,7 +2,7 @@ import AppBar from "@material-ui/core/AppBar/AppBar";
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 import Typography from "@material-ui/core/Typography/Typography";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
-import Navigation from "./views/Navigation";
+import Navigation from "./components/Navigation";
 import React, { useContext } from "react";
 import { withStyles } from "@material-ui/core";
 

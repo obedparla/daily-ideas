@@ -33,10 +33,12 @@ const GlobalStyle = createGlobalStyle`
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#FFB630",
+      main: "#5a15c5",
+      contrastText: "#fff",
     },
     secondary: {
-      main: "#41C9BC",
+      main: "#27C515",
+      contrastText: "#fff",
     },
     // error: will use the default color
   },

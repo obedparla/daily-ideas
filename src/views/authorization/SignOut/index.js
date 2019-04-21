@@ -6,7 +6,7 @@ const SignOutButton = () => {
   const firebase = useContext(withFirebase);
 
   return (
-    <Button type="button" onClick={firebase.signOut}>
+    <Button color={"inherit"} onClick={firebase.signOut}>
       Sign Out
     </Button>
   );
