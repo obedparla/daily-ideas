@@ -37,7 +37,7 @@ const theme = createMuiTheme({
       contrastText: "#fff",
     },
     secondary: {
-      main: "#27C515",
+      main: "#13c575",
       contrastText: "#fff",
     },
     // error: will use the default color

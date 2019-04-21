@@ -111,6 +111,14 @@ small {
     font-weight: 400;
 }
 
+footer a{
+    color: #633991;
+}
+
+a:visited{
+    color: #633991;
+}
+
 .list-unstyled {
     padding-left: 0;
     list-style: none;
@@ -337,7 +345,7 @@ h1 {
 }
 
 h3 {
-    color: #633991;
+    color: #5a15c5;
     font-size: 33px;
     font-weight: 500;
 }
@@ -345,13 +353,13 @@ h3 {
 h4 {
     font-size: 20px;
     font-weight: 500;
-    color: #633991;
+    color: #5a15c5;
 }
 
 h5 {
     font-size: 28px;
     font-weight: 300;
-    color: #633991;
+    color: #5a15c5;
     margin-bottom: 0.7rem;
 }
 
@@ -389,10 +397,7 @@ p {
 }
 
 .bg-gradient {
-    background-image: -moz-linear-gradient(135deg, rgba(60, 8, 118, 0.8) 0%, rgba(250, 0, 118, 0.8) 100%);
-    background-image: -webkit-linear-gradient(135deg, rgba(60, 8, 118, 0.8) 0%, rgba(250, 0, 118, 0.8) 100%);
-    background-image: -ms-linear-gradient(135deg, rgba(60, 8, 118, 0.8) 0%, rgba(250, 0, 118, 0.8) 100%);
-    background-image: linear-gradient(135deg, rgba(60, 8, 118, 0.8) 0%, rgba(250, 0, 118, 0.8) 100%);
+    background-image: linear-gradient(180deg, rgb(90, 20, 197) 0%, #13c575 100%)
 }
 
 .tagline {
@@ -426,12 +431,9 @@ p {
 }
 
 .gradient-fill:before {
-    color: #fc73b4;
-    background: -moz-linear-gradient(top, #9477b4 0%, #fc73b4 100%);
-    background: -webkit-linear-gradient(top, #9477b4 0%, #fc73b4 100%);
-    background: linear-gradient(to bottom, #9477b4 0%, #fc73b4 100%);
+    color: #633991;
+    background: linear-gradient(to bottom, #633991 0%, #13c575 100%);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -456,10 +458,8 @@ p {
     content: "";
     position: absolute;
     width: 3px;
-    color: #fc73b4;
-    background: -moz-linear-gradient(top, #9477b4 0%, #fc73b4 100%);
-    background: -webkit-linear-gradient(top, #9477b4 0%, #fc73b4 100%);
-    background: linear-gradient(to bottom, #9477b4 0%, #fc73b4 100%);
+    color: #633991;
+    background: linear-gradient(to bottom, #633991 0%, #13c575 100%);
     top: 0;
     bottom: 0;
     left: 0;
@@ -484,7 +484,7 @@ p {
     border-radius: 50%;
     margin-bottom: 1.5rem;
     background-color: #FFF;
-    color: #f5378e;
+    color: #13c575;
     font-size: 48px;
     text-align: center;
     line-height: 80px;
@@ -502,10 +502,7 @@ p {
 }
 
 .ui-steps li:hover .circle-icon {
-    background-image: -moz-linear-gradient(122deg, #e6388e 0%, #fb378e 100%);
-    background-image: -webkit-linear-gradient(122deg, #e6388e 0%, #fb378e 100%);
-    background-image: -ms-linear-gradient(122deg, #e6388e 0%, #fb378e 100%);
-    background-image: linear-gradient(122deg, #e6388e 0%, #fb378e 100%);
+    background: #13c575;
     box-shadow: 0px 9px 32px 0px rgba(0, 0, 0, 0.09);
     color: #FFF;
 }
