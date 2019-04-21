@@ -29,7 +29,6 @@ export const NewIdeaForm = props => {
             onChange={props.handleChange}
             margin="normal"
             variant="outlined"
-            multiline
           />
           {ideasList.length < 10 ? (
             <>

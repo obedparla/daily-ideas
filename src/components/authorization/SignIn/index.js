@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -17,7 +16,6 @@ function SignIn(props) {
 
   return (
     <main className={classes.main}>
-      <CssBaseline />
       <Paper className={classes.paper}>
         <Typography component="h1" variant="h5">
           Sign in

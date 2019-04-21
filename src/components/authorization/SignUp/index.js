@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 import { Link, withRouter } from "react-router-dom";
 import * as ROUTES from "../../../constants/routes";
 import { withFirebase } from "../../../Firebase";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { authModalStyles } from "../styles";
@@ -52,7 +51,6 @@ const SignUpPage = props => {
 
   return (
     <main className={classes.main}>
-      <CssBaseline />
       <Paper className={classes.paper}>
         <Typography component="h1" variant="h5">
           Sign Up

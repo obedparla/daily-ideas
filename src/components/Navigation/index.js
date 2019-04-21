@@ -15,9 +15,6 @@ const Navigation = () => {
 const NavigationAuth = () => (
   <>
     <Button>
-      <Link to={ROUTES.LANDING}>Home</Link>
-    </Button>
-    <Button>
       <Link to={ROUTES.ACCOUNT}>Account</Link>
     </Button>
     <Button>

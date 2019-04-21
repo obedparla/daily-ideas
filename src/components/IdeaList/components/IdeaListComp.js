@@ -47,7 +47,6 @@ export const IdeaListComp = props => {
               value={idea.text}
               margin="normal"
               variant="outlined"
-              multiline
               onChange={props.handleIdeaEdit}
             />
             <IconButton
