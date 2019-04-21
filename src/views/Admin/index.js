@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { withFirebase } from "../../Firebase";
 import { UserList } from "./components/UserList";
-import { withAuthorization } from "../Session";
+import { withAuthorization } from "../../hocs/Session";
 
 const AdmimPage = props => {
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const AdmimPage = props => {
         const usersObject = snapshot.val();
         const usersList = Object.keys(usersObject).map(key => ({
           ...usersObject[key],
-          uid: key
+          uid: key,
         }));
 
         setUsers(usersList);

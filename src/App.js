@@ -2,19 +2,19 @@ import AppBar from "@material-ui/core/AppBar/AppBar";
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 import Typography from "@material-ui/core/Typography/Typography";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
+import Navigation from "./views/Navigation";
 import React, { useContext } from "react";
 import { withStyles } from "@material-ui/core";
 
 import * as ROUTES from "./constants/routes";
-import IdeaList from "./components/IdeaList";
-import SignUp from "./components/authorization/SignUp";
-import SignIn from "./components/authorization/SignIn";
-import { AuthUserContext, withAuthentication } from "./components/Session";
-import PasswordForgetPage from "./components/authorization/ResetPassword";
-import AdminPage from "./components/Admin";
-import AccountPage from "./components/Account";
-import LandingPage from "./components/Landing";
+import IdeaList from "./views/IdeaList";
+import SignUp from "./views/authorization/SignUp";
+import SignIn from "./views/authorization/SignIn";
+import { AuthUserContext, withAuthentication } from "./hocs/Session";
+import PasswordForgetPage from "./views/authorization/ResetPassword";
+import AdminPage from "./views/Admin";
+import AccountPage from "./views/Account";
+import LandingPage from "./views/Landing";
 import styled from "styled-components";
 
 const Main = styled("main")`

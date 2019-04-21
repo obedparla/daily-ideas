@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthUserContext, withAuthorization } from "../Session";
+import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";
 import { getCurrentDate } from "../../utils";
 import { CircularProgress } from "@material-ui/core";
@@ -25,7 +25,7 @@ const AccountPage = () => {
         const ideaStats = Object.keys(statsVal).map(key => ({
           count: statsVal[key].ideasCount,
           id: statsVal[key].createdAt,
-          date: statsVal[key].date
+          date: statsVal[key].date,
         }));
 
         const totalIdeasCount = ideaStats.reduce(

@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import _findIndex from "lodash/findIndex";
 import { CircularProgress, Typography, Button } from "@material-ui/core";
 
-import { AuthUserContext, withAuthorization } from "../Session";
+import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";
 import { getCurrentDate } from "../../utils/dates";
 import { NewIdeaForm, IdeaListComp } from "./components";

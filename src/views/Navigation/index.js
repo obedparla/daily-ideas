@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { withStyles, Button } from "@material-ui/core";
 
-import { AuthUserContext } from "../Session";
+import { AuthUserContext } from "../../hocs/Session";
 import * as ROUTES from "../../constants/routes";
 import SignOutButton from "../authorization/SignOut";
 
