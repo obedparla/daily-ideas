@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
 import {
   IconButton,
   List,
-  ListItem,
   Paper,
   TextField,
   Typography,
 } from "@material-ui/core";
 import { Delete as DeleteIcon } from "@material-ui/icons";
+
+import { DenseListItem } from "../../../components";
 
 export const IdeaListComp = props => {
   const { classes } = props;
@@ -33,13 +34,8 @@ export const IdeaListComp = props => {
       />
 
       {props.ideasList.map((idea, index) => (
-        <Paper
-          key={idea.id}
-          className={classes.paper}
-          elevation={2}
-          style={{ textAlign: "center" }}
-        >
-          <ListItem dense button>
+        <Paper key={idea.id} className={classes.paper} elevation={1}>
+          <DenseListItem button>
             <TextField
               id={idea.id}
               fullWidth
@@ -56,7 +52,7 @@ export const IdeaListComp = props => {
             >
               <DeleteIcon fontSize="small" />
             </IconButton>
-          </ListItem>
+          </DenseListItem>
         </Paper>
       ))}
     </List>

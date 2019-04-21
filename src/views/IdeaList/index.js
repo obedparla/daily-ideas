@@ -154,8 +154,7 @@ const styles = theme => ({
     flexGrow: 1,
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    margin: theme.spacing.unit,
   },
   dense: {
     marginTop: 16,
