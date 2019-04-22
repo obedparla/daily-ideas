@@ -25,8 +25,8 @@ const LandingPage = props => {
         <div className="container mt-5">
           <h1>Daily Ideas App</h1>
           <p className="tagline">
-            Train your brain and creativity by thinking of ideas on a daily
-            basis.{" "}
+            Train your brain and become more creative by coming up with daily
+            new ideas!
           </p>
         </div>
         <div className="img-holder mt-3">

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+import { withRouter } from "react-router-dom";
 
 import { PasswordForgetLink } from "../ResetPassword";
 import { SignInForm, SignInGoogle, SingInFacebook } from "./components";
@@ -10,9 +11,16 @@ import { authModalStyles } from "../styles";
 import * as ROUTES from "../../../constants/routes";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { AuthUserContext } from "../../../hocs/Session";
+import { LANDING } from "../../../constants/routes";
 
 function SignIn(props) {
   const { classes } = props;
+  const authUser = useContext(AuthUserContext);
+
+  if (authUser) {
+    props.history.push(LANDING);
+  }
 
   return (
     <main className={classes.main}>
@@ -40,4 +48,4 @@ SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(authModalStyles)(SignIn);
+export default withRouter(withStyles(authModalStyles)(SignIn));

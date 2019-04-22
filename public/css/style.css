@@ -67,11 +67,6 @@ a {
     -webkit-text-decoration-skip: objects;
 }
 
-a:hover {
-    color: #0056b3;
-    text-decoration: underline;
-}
-
 img {
     vertical-align: middle;
     border-style: none;
@@ -112,10 +107,10 @@ small {
 }
 
 footer a{
-    color: #633991;
+    color: #633991
 }
 
-a:visited{
+footer a:visited{
     color: #633991;
 }
 
@@ -403,7 +398,7 @@ p {
 .tagline {
     font-size: 23px;
     font-weight: 300;
-    color: #ffb8f6;
+    color: #fff;
     max-width: 800px;
     margin: 0 auto;
 }
