@@ -3,7 +3,7 @@ node_js:
   - "lts/*"
 script:
   - echo "Running npm build"
-  - npm build
+  - npm run build
   - echo "Deploying Daily Ideas to Firebase"
 install:
   - npm install -g firebase-tools
