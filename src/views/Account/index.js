@@ -1,16 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";
-import { getCurrentDate } from "../../utils";
 import { CircularProgress } from "@material-ui/core";
 
-const currentDate = getCurrentDate();
 const AccountPage = () => {
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(withFirebase);
   const userId = authUser.uid;
 
-  const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalIdeas, setTotalIdeas] = useState(0);
   const [bestIdea, setBestIdea] = useState({});
@@ -39,7 +36,6 @@ const AccountPage = () => {
         });
         setBestIdea(bestIdeatemp);
         setTotalIdeas(totalIdeasCount);
-        setStats([...ideaStats]);
         setLoading(false);
       } else {
         setLoading(false);

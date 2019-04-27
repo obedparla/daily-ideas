@@ -23,7 +23,7 @@ const SignUpPage = props => {
   const [error, setError] = useState(null);
   const firebase = useContext(withFirebase);
 
-  const { username, email, passwordOne, passwordTwo } = formState;
+  const { username, email, passwordOne, } = formState;
 
   const onChange = name => event => {
     setFormState({ ...formState, [name]: event.target.value });

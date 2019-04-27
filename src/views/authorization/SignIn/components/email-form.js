@@ -19,8 +19,6 @@ const SignInFormFunc = props => {
 
   const { email, passwordOne } = formState;
 
-  const isInvalid = !passwordOne || !email;
-
   const onChange = name => event => {
     setFormState({ ...formState, [name]: event.target.value });
   };
