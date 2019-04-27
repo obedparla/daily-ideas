@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "lts/*"
 script:
+  - echo 'Installing dependencies'
+  - npm install
   - echo "Running npm build"
   - npm run build
   - echo "Deploying Daily Ideas to Firebase"
