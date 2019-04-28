@@ -31,6 +31,7 @@ export const IdeaListComp = props => {
         InputLabelProps={{
           shrink: true,
         }}
+        multiline
       />
 
       {props.ideasList.map((idea, index) => (
@@ -44,6 +45,7 @@ export const IdeaListComp = props => {
               margin="normal"
               variant="outlined"
               onChange={props.handleIdeaEdit}
+              multiline
             />
             <IconButton
               aria-label="Delete"

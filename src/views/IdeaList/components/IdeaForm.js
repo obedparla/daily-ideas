@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Grid, Paper, TextField } from "@material-ui/core";
+import { Fab, Grid, Paper, TextField } from '@material-ui/core';
 import { IdeaListComp } from "./IdeaListComp";
+import AddIcon from '@material-ui/icons/Add';
+import { AddButton } from './index';
 
 export const NewIdeaForm = props => {
   const { classes, ideasList } = props;
@@ -30,6 +32,7 @@ export const NewIdeaForm = props => {
             margin="normal"
             variant="outlined"
           />
+          <AddButton />
           {ideasList.length < 10 ? (
             <>
               <div>You've added {ideasList.length} ideas so far!</div>
@@ -39,7 +42,7 @@ export const NewIdeaForm = props => {
             <div>You've added {ideasList.length} ideas, well done!</div>
           )}
         </Grid>
-      </Paper>
+              </Paper>
     </form>
   );
 };
