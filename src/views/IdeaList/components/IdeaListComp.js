@@ -22,9 +22,7 @@ export const IdeaListComp = props => {
     title: {
       marginBottom: "24px",
     },
-    titleInput: {
-      fontSize: "28px",
-    },
+    titleInput: {},
     chips: {
       margin: "8px",
     },
