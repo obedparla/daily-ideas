@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import {
+  Avatar,
+  Chip,
+  Grid,
   IconButton,
   List,
   Paper,
   TextField,
   Typography,
-  Chip,
-  Avatar,
-  Grid,
 } from "@material-ui/core";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import { DenseListItem, PaperWrapper } from "../../../components";
+import { DenseListItem } from "../../../components";
 import { ViewTypeSwitch } from "./SwitchViewType";
 
 export const IdeaListComp = props => {

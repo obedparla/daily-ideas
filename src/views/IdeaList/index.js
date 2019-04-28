@@ -6,7 +6,7 @@ import { Typography, Button } from "@material-ui/core";
 import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";
 import { getCurrentDate } from "../../utils/dates";
-import { NewIdeaForm, IdeaListComp, ViewTypeSwitch } from "./components";
+import { NewIdeaForm, IdeaListComp } from "./components";
 import { PaperWrapper } from "../../components";
 
 const currentDate = getCurrentDate();

@@ -6,7 +6,7 @@ import * as ROUTES from "../../../constants/routes";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import styled from "styled-components";
 import { PaperWrapper } from "../../../components";
-import { TextField, Button, Grid } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 
 const INITIAL_STATE = {
   email: "",
