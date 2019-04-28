@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import React, { useContext } from "react";
-import { withStyles } from "@material-ui/core";
+import { Paper, withStyles } from "@material-ui/core";
 
 import * as ROUTES from "./constants/routes";
 import IdeaList from "./views/IdeaList";
@@ -17,17 +17,19 @@ import AccountPage from "./views/Account";
 import LandingPage from "./views/Landing";
 import styled, { css } from "styled-components";
 
-const Main = styled("main")`
+const StyledPaper = styled(Paper)`
   ${props =>
     props.withMain &&
     css`
       width: 80%;
       max-width: 1200px;
       margin: 40px auto;
+      padding: 40px;
       overflow-x: hidden;
-      
-      ${props.theme.mui.breakpoints.down('sm')}{
-        margin: 16px;
+
+      ${props.theme.mui.breakpoints.down("sm")} {
+        margin: 0;
+        padding: 16px;
         width: 100%;
       }
     `}
@@ -50,24 +52,29 @@ const App = props => {
           </Toolbar>
         </AppBar>
 
-        <Main withMain={authUser}>
-          {authUser ? (
-            <>
-              <Route exact path={ROUTES.LANDING} component={IdeaList} />
-              <Route path={ROUTES.ADMIN} component={AdminPage} />
-              <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-            </>
-          ) : (
-            <>
-              <Route exact path={ROUTES.LANDING} component={LandingPage} />
-            </>
-          )}
+        <main>
+          <StyledPaper withMain={authUser} elevation={2}>
+            {authUser ? (
+              <>
+                <Route exact path={ROUTES.LANDING} component={IdeaList} />
+                <Route path={ROUTES.ADMIN} component={AdminPage} />
+                <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+              </>
+            ) : (
+              <>
+                <Route exact path={ROUTES.LANDING} component={LandingPage} />
+              </>
+            )}
 
-          <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
-          <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
+            <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
+            <Route exact path={ROUTES.SIGN_IN} component={SignIn} />
 
-          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-        </Main>
+            <Route
+              path={ROUTES.PASSWORD_FORGET}
+              component={PasswordForgetPage}
+            />
+          </StyledPaper>
+        </main>
       </div>
     </Router>
   );

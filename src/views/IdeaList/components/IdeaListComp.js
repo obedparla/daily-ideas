@@ -9,11 +9,20 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Delete as DeleteIcon } from "@material-ui/icons";
-
+import { makeStyles } from "@material-ui/styles";
 import { DenseListItem } from "../../../components";
 
 export const IdeaListComp = props => {
   const { classes } = props;
+  const ideaClasses = makeStyles({
+    title: {
+      marginBottom: "24px",
+    },
+    titleInput: {
+      fontSize: "28px",
+    },
+  })();
+
   return (
     <List className={classes.root}>
       <Typography variant="h4" gutterBottom>
@@ -22,11 +31,10 @@ export const IdeaListComp = props => {
       <TextField
         value={props.title}
         label="Title"
-        style={{ margin: 8 }}
-        inputProps={{ style: { fontSize: "28px" } }}
+        className={ideaClasses.title}
+        inputProps={{ className: ideaClasses.titleInput }}
         placeholder="Ideas about:"
         fullWidth
-        margin="normal"
         onChange={props.handleTitleChange}
         InputLabelProps={{
           shrink: true,

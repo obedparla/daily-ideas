@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Fab, Grid, Paper, TextField } from '@material-ui/core';
+import { Grid, Paper, TextField } from "@material-ui/core";
 import { IdeaListComp } from "./IdeaListComp";
-import AddIcon from '@material-ui/icons/Add';
-import { AddButton } from './index';
+import { AddButton } from "./index";
+import { DenseListItem } from "../../../components";
 
 export const NewIdeaForm = props => {
   const { classes, ideasList } = props;
@@ -21,7 +21,7 @@ export const NewIdeaForm = props => {
         elevation={1}
         style={{ textAlign: "center", marginBottom: "24px" }}
       >
-        <Grid container justify="center" alignItems={"center"}>
+        <DenseListItem button>
           <TextField
             id="outlined-name"
             label="Ideas"
@@ -33,16 +33,18 @@ export const NewIdeaForm = props => {
             variant="outlined"
           />
           <AddButton />
-          {ideasList.length < 10 ? (
-            <>
-              <div>You've added {ideasList.length} ideas so far!</div>
-              <div>Try adding {10 - ideasList.length} more!</div>
-            </>
-          ) : (
-            <div>You've added {ideasList.length} ideas, well done!</div>
-          )}
-        </Grid>
-              </Paper>
+        </DenseListItem>
+      </Paper>
+      <Grid container justify="center" alignItems={"center"}>
+        {ideasList.length < 10 ? (
+          <>
+            <div>You've added {ideasList.length} ideas so far!</div>
+            <div>Try adding {10 - ideasList.length} more!</div>
+          </>
+        ) : (
+          <div>You've added {ideasList.length} ideas, well done!</div>
+        )}
+      </Grid>
     </form>
   );
 };
