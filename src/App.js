@@ -35,6 +35,13 @@ const StyledPaper = styled(Paper)`
     `}
 `;
 
+const Logo = styled("img")`
+  width: 36px;
+  height: auto;
+  margin-right: 6px;
+  margin-bottom: 5px;
+`;
+
 const App = props => {
   const { classes } = props;
 
@@ -46,7 +53,10 @@ const App = props => {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              <Link to={ROUTES.LANDING}>Daily Ideas</Link>
+              <Link to={ROUTES.LANDING}>
+                <Logo src="/daily-idea-logo.svg" alt="Daily Ideas Logo Svg" />
+                Daily Ideas
+              </Link>
             </Typography>
             <Navigation />
           </Toolbar>

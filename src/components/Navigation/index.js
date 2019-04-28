@@ -17,9 +17,6 @@ const NavigationAuth = () => (
     <Button color="inherit">
       <Link to={ROUTES.ACCOUNT}>Account</Link>
     </Button>
-    <Button color="inherit">
-      <Link to={ROUTES.ADMIN}>Admin</Link>
-    </Button>
     <SignOutButton />
   </>
 );
