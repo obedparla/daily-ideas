@@ -1,15 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App.js";
-import * as serviceWorker from "./serviceWorker";
-import { Firebase, withFirebase } from "./Firebase";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { createGlobalStyle } from "styled-components";
-import JssProvider from "react-jss/lib/JssProvider";
-import { create } from "jss";
-import { createGenerateClassName, jssPreset } from "@material-ui/core/styles";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App.js';
+import * as serviceWorker from './serviceWorker';
+import { Firebase, withFirebase } from './Firebase';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { createGlobalStyle } from 'styled-components';
+import JssProvider from 'react-jss/lib/JssProvider';
+import { create } from 'jss';
+import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
+
+import WithThemes from './components/WithThemes';
 
 // Fixes the specificity of styled-components vs material-ui
 // https://material-ui.com/customization/css-in-js/#css-injection-order
@@ -17,10 +18,14 @@ const generateClassName = createGenerateClassName();
 const jss = create({
   ...jssPreset(),
   // We define a custom insertion point that JSS will look for injecting the styles in the DOM.
-  insertionPoint: document.getElementById("jss-insertion-point"),
+  insertionPoint: document.getElementById('jss-insertion-point'),
 });
 
 const GlobalStyle = createGlobalStyle`
+  html, body{
+  height: 100%;
+  }
+  
   a{
     text-decoration: none;
     
@@ -30,31 +35,19 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#5a15c5",
-      contrastText: "#fff",
-    },
-    secondary: {
-      main: "#13c575",
-      contrastText: "#fff",
-    },
-    // error: will use the default color
-  },
-});
-
 ReactDOM.render(
   <withFirebase.Provider value={new Firebase()}>
     <JssProvider jss={jss} generateClassName={generateClassName}>
-      <MuiThemeProvider theme={theme}>
-        <GlobalStyle />
-        <CssBaseline />
-        <App />
-      </MuiThemeProvider>
+      <WithThemes>
+        <>
+          <GlobalStyle />
+          <CssBaseline />
+          <App />
+        </>
+      </WithThemes>
     </JssProvider>
   </withFirebase.Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -25,6 +25,11 @@ const Main = styled("main")`
       max-width: 1200px;
       margin: 40px auto;
       overflow-x: hidden;
+      
+      ${props.theme.mui.breakpoints.down('sm')}{
+        margin: 16px;
+        width: 100%;
+      }
     `}
 `;
 
