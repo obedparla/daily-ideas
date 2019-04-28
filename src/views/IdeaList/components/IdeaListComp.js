@@ -25,7 +25,7 @@ export const IdeaListComp = props => {
 
   return (
     <List className={classes.root}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" align="center" gutterBottom>
         Write your Daily ideas
       </Typography>
       <TextField

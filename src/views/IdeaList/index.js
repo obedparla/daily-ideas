@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import _findIndex from "lodash/findIndex";
-import { CircularProgress, Typography, Button } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 
 import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";
 import { getCurrentDate } from "../../utils/dates";
 import { NewIdeaForm, IdeaListComp } from "./components";
+import { PaperWrapper } from "../../components";
 
 const currentDate = getCurrentDate();
 let titleTimeout;
@@ -115,37 +116,31 @@ const IdeaList = props => {
   };
 
   return (
-    <>
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <>
-          <IdeaListComp
-            classes={classes}
-            title={title}
-            ideasList={ideasList}
-            handleTitleChange={handleTitleChange}
-            handleIdeaEdit={handleIdeaEdit}
-            handleDelete={handleDelete}
-          />
-          {deletedIdeas.length > 0 && (
-            <Typography align={"right"} gutterBottom>
-              <Button variant="outlined" onClick={handleUndoDelete}>
-                Undo
-              </Button>
-            </Typography>
-          )}
-
-          <NewIdeaForm
-            classes={classes}
-            idea={idea}
-            ideasList={ideasList}
-            handleIdeaSubmit={handleIdeaSubmit}
-            handleChange={handleChange}
-          />
-        </>
+    <PaperWrapper loading={loading}>
+      <IdeaListComp
+        classes={classes}
+        title={title}
+        ideasList={ideasList}
+        handleTitleChange={handleTitleChange}
+        handleIdeaEdit={handleIdeaEdit}
+        handleDelete={handleDelete}
+      />
+      {deletedIdeas.length > 0 && (
+        <Typography align={"right"} gutterBottom>
+          <Button variant="outlined" onClick={handleUndoDelete}>
+            Undo
+          </Button>
+        </Typography>
       )}
-    </>
+
+      <NewIdeaForm
+        classes={classes}
+        idea={idea}
+        ideasList={ideasList}
+        handleIdeaSubmit={handleIdeaSubmit}
+        handleChange={handleChange}
+      />
+    </PaperWrapper>
   );
 };
 

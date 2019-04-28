@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { withRouter } from "react-router-dom";
@@ -13,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { AuthUserContext } from "../../../hocs/Session";
 import { LANDING } from "../../../constants/routes";
+import { PaperWrapper } from "../../../components";
 
 function SignIn(props) {
   const { classes } = props;
@@ -23,24 +23,22 @@ function SignIn(props) {
   }
 
   return (
-    <main className={classes.main}>
-      <Paper className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <SignInForm {...props} />
+    <PaperWrapper smallWidth>
+      <Typography component="h1" variant="h5">
+        Sign in
+      </Typography>
+      <SignInForm {...props} />
 
-        <SignInGoogle {...props} />
-        <SingInFacebook {...props} />
+      <SignInGoogle {...props} />
+      <SingInFacebook {...props} />
 
-        <Link to={ROUTES.SIGN_UP} className={classes.signUpEmail}>
-          <Button type="button" fullWidth variant="contained" color="secondary">
-            Create an account
-          </Button>
-        </Link>
-        <PasswordForgetLink />
-      </Paper>
-    </main>
+      <Link to={ROUTES.SIGN_UP} className={classes.signUpEmail}>
+        <Button type="button" fullWidth variant="contained" color="secondary">
+          Create an account
+        </Button>
+      </Link>
+      <PasswordForgetLink />
+    </PaperWrapper>
   );
 }
 

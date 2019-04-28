@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";
-import { CircularProgress } from "@material-ui/core";
+import { PaperWrapper } from "../../components";
 
 const AccountPage = () => {
   const authUser = useContext(AuthUserContext);
@@ -44,19 +44,13 @@ const AccountPage = () => {
   }, []);
 
   return (
-    <>
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <>
-          <h1>Welcome {authUser.displayName}</h1>
-          <h2>You've created a total of {totalIdeas} ideas so far!</h2>
-          <h3>
-            Your best day was {bestIdea.date} with {bestIdea.count} ideas!
-          </h3>
-        </>
-      )}
-    </>
+    <PaperWrapper loading={loading}>
+      <h1>Welcome {authUser.displayName}</h1>
+      <h2>You've created a total of {totalIdeas} ideas so far!</h2>
+      <h3>
+        Your best day was {bestIdea.date} with {bestIdea.count} ideas!
+      </h3>
+    </PaperWrapper>
   );
 };
 
