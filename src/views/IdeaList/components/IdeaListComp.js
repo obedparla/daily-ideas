@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -7,10 +7,14 @@ import {
   Paper,
   TextField,
   Typography,
+  Chip,
+  Avatar,
+  Grid,
 } from "@material-ui/core";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import { DenseListItem } from "../../../components";
+import { DenseListItem, PaperWrapper } from "../../../components";
+import { ViewTypeSwitch } from "./SwitchViewType";
 
 export const IdeaListComp = props => {
   const { classes } = props;
@@ -21,13 +25,22 @@ export const IdeaListComp = props => {
     titleInput: {
       fontSize: "28px",
     },
+    chips: {
+      margin: "8px",
+    },
   })();
 
   return (
     <List className={classes.root}>
-      <Typography variant="h4" align="center" gutterBottom>
-        Write your Daily ideas
-      </Typography>
+      <Grid container justify="space-between">
+        <Typography variant="h4" align="center" gutterBottom>
+          Write your Daily ideas
+        </Typography>
+        <ViewTypeSwitch
+          setViewType={props.setViewType}
+          viewType={props.viewType}
+        />
+      </Grid>
       <TextField
         value={props.title}
         label="Title"
@@ -42,29 +55,44 @@ export const IdeaListComp = props => {
         multiline
       />
 
-      {props.ideasList.map((idea, index) => (
-        <Paper key={idea.id} className={classes.paper} elevation={1}>
-          <DenseListItem button>
-            <TextField
+      {props.ideasList.map((idea, index) => {
+        if (props.viewType === "chips") {
+          return (
+            <Chip
               id={idea.id}
-              fullWidth
-              className={classes.textField}
-              value={idea.text}
-              margin="normal"
+              label={idea.text}
+              onDelete={() => props.handleDelete(idea, index)}
               variant="outlined"
-              onChange={props.handleIdeaEdit}
-              multiline
+              color="primary"
+              avatar={<Avatar>{index + 1}</Avatar>}
+              className={ideaClasses.chips}
             />
-            <IconButton
-              aria-label="Delete"
-              className={classes.margin}
-              onClick={() => props.handleDelete(idea, index)}
-            >
-              <DeleteIcon fontSize="small" />
-            </IconButton>
-          </DenseListItem>
-        </Paper>
-      ))}
+          );
+        } else {
+          return (
+            <Paper key={idea.id} className={classes.paper} elevation={1}>
+              <DenseListItem button>
+                <TextField
+                  fullWidth
+                  className={classes.textField}
+                  value={idea.text}
+                  margin="normal"
+                  variant="outlined"
+                  onChange={props.handleIdeaEdit}
+                  multiline
+                />
+                <IconButton
+                  aria-label="Delete"
+                  className={classes.margin}
+                  onClick={() => props.handleDelete(idea, index)}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </DenseListItem>
+            </Paper>
+          );
+        }
+      })}
     </List>
   );
 };
@@ -76,4 +104,6 @@ IdeaListComp.propTypes = {
   ideasList: PropTypes.object,
   handleIdeaEdit: PropTypes.func,
   handleDelete: PropTypes.func,
+  viewType: PropTypes.oneOf(["chips", "text-fields"]),
+  setViewType: PropTypes.func,
 };

@@ -6,7 +6,7 @@ import { Typography, Button } from "@material-ui/core";
 import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";
 import { getCurrentDate } from "../../utils/dates";
-import { NewIdeaForm, IdeaListComp } from "./components";
+import { NewIdeaForm, IdeaListComp, ViewTypeSwitch } from "./components";
 import { PaperWrapper } from "../../components";
 
 const currentDate = getCurrentDate();
@@ -24,6 +24,7 @@ const IdeaList = props => {
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(withFirebase);
   const userId = authUser.uid;
+  const [viewType, setViewType] = useState("chips");
 
   const firebaseIdeas = firebase.ideas(userId, currentDate);
   const firebaseTitle = firebase.ideaTitle(userId, currentDate);
@@ -124,6 +125,8 @@ const IdeaList = props => {
         handleTitleChange={handleTitleChange}
         handleIdeaEdit={handleIdeaEdit}
         handleDelete={handleDelete}
+        viewType={viewType}
+        setViewType={setViewType}
       />
       {deletedIdeas.length > 0 && (
         <Typography align={"right"} gutterBottom>
