@@ -5,13 +5,8 @@ import { withFirebase } from "../../../Firebase";
 import * as ROUTES from "../../../constants/routes";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import styled from "styled-components";
-
-const PasswordForgetPage = () => (
-  <div>
-    <h1>PasswordForget</h1>
-    <PasswordForgetForm />
-  </div>
-);
+import { PaperWrapper } from "../../../components";
+import { TextField, Button, Grid } from "@material-ui/core";
 
 const INITIAL_STATE = {
   email: "",
@@ -42,20 +37,39 @@ const PasswordForgetForm = props => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        name="email"
-        value={formState.email}
-        onChange={onChange}
-        type="text"
-        placeholder="Email Address"
-      />
-      <button disabled={isInvalid} type="submit">
-        Reset My Password
-      </button>
+    <PaperWrapper smallWidth>
+      <Grid container justify="center">
+        <Typography component="h1" variant="h5" gutterBottom>
+          Forgot Password
+        </Typography>
 
-      {error && <p>{error.message}</p>}
-    </form>
+        <form onSubmit={onSubmit}>
+          <TextField
+            label="Reset password"
+            margin="normal"
+            variant="outlined"
+            name="email"
+            value={formState.email}
+            onChange={onChange}
+            type="text"
+            placeholder="Email Address"
+            fullWidth
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={isInvalid}
+          >
+            Reset My Password
+          </Button>
+
+          {error && <p>{error.message}</p>}
+        </form>
+      </Grid>
+    </PaperWrapper>
   );
 };
 
@@ -68,6 +82,6 @@ const PasswordForgetLink = () => (
   </ResetPassword>
 );
 
-export default PasswordForgetPage;
+export default PasswordForgetForm;
 
 export { PasswordForgetForm, PasswordForgetLink };
