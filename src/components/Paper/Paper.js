@@ -11,12 +11,6 @@ export const StyledPaper = styled(Paper)`
   margin: 40px auto;
   padding: 40px;
 
-  ${props =>
-    props.smallWidth &&
-    css`
-      width: 400px;
-    `}
-
   ${props => css`
     ${props.theme.mui.breakpoints.down("sm")} {
       margin: 0;
@@ -24,11 +18,25 @@ export const StyledPaper = styled(Paper)`
       width: auto;
     }
   `}
+  
+  ${props =>
+    props.flexCentered &&
+    css`
+      display: flex;
+      justify-content: center;
+    `}
+
+  ${props =>
+    props.smallWidth &&
+    css`
+      width: 400px;
+    `}
 `;
 
 StyledPaper.propTypes = {
   children: PropTypes.node,
   smallWidth: PropTypes.bool,
+  flexCentered: PropTypes.bool,
 };
 
 export const PaperWrapper = props => (
@@ -41,4 +49,5 @@ PaperWrapper.propTypes = {
   loading: PropTypes.bool,
   children: PropTypes.node,
   smallWidth: PropTypes.bool,
+  flexCentered: PropTypes.bool,
 };

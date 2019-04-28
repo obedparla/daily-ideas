@@ -18,15 +18,15 @@ export const authModalStyles = theme => ({
     marginTop: theme.spacing.unit * 2,
   },
   signUpEmail: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit,
     width: "100%",
   },
   facebook: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit,
     background: "#3a579a",
   },
   google: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit,
     background: "#4285F4",
   },
 });

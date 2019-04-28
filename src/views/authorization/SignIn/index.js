@@ -24,7 +24,7 @@ function SignIn(props) {
 
   return (
     <PaperWrapper smallWidth>
-      <Typography component="h1" variant="h5">
+      <Typography component="h1" variant="h5" gutterBottom align="center">
         Sign in
       </Typography>
       <SignInForm {...props} />
@@ -32,8 +32,14 @@ function SignIn(props) {
       <SignInGoogle {...props} />
       <SingInFacebook {...props} />
 
-      <Link to={ROUTES.SIGN_UP} className={classes.signUpEmail}>
-        <Button type="button" fullWidth variant="contained" color="secondary">
+      <Link to={ROUTES.SIGN_UP}>
+        <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          color="secondary"
+          className={classes.signUpEmail}
+        >
           Create an account
         </Button>
       </Link>

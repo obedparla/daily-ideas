@@ -37,38 +37,36 @@ const PasswordForgetForm = props => {
   };
 
   return (
-    <PaperWrapper smallWidth>
-      <Grid container justify="center">
-        <Typography component="h1" variant="h5" gutterBottom>
-          Forgot Password
-        </Typography>
+    <PaperWrapper smallWidth flexCentered>
+      <Typography component="h1" variant="h5" gutterBottom>
+        Forgot Password
+      </Typography>
 
-        <form onSubmit={onSubmit}>
-          <TextField
-            label="Reset password"
-            margin="normal"
-            variant="outlined"
-            name="email"
-            value={formState.email}
-            onChange={onChange}
-            type="text"
-            placeholder="Email Address"
-            fullWidth
-          />
+      <form onSubmit={onSubmit}>
+        <TextField
+          label="Reset password"
+          margin="normal"
+          variant="outlined"
+          name="email"
+          value={formState.email}
+          onChange={onChange}
+          type="text"
+          placeholder="Email Address"
+          fullWidth
+        />
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            disabled={isInvalid}
-          >
-            Reset My Password
-          </Button>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          disabled={isInvalid}
+        >
+          Reset My Password
+        </Button>
 
-          {error && <p>{error.message}</p>}
-        </form>
-      </Grid>
+        {error && <p>{error.message}</p>}
+      </form>
     </PaperWrapper>
   );
 };
@@ -77,7 +75,7 @@ const ResetPassword = styled(Typography)`
   margin-top: 16px;
 `;
 const PasswordForgetLink = () => (
-  <ResetPassword variant={"subheading"}>
+  <ResetPassword variant={"subheading"} align="center">
     <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
   </ResetPassword>
 );
