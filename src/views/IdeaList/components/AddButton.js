@@ -6,17 +6,13 @@ import { Fab } from "@material-ui/core";
 const StyledFab = styled(Fab)`
   ${props => css`
     ${props.theme.mui.breakpoints.down("sm")} {
-      position: fixed;
-      bottom: ${props.theme.mui.spacing.unit * 2}px;
-      right: ${props.theme.mui.spacing.unit * 2}px;
-    }
-    ${props.theme.mui.breakpoints.up("sm")} {
-      width: 44px;
+      width: 54px;
       height: 44px;
+    }
 
-      svg {
-        font-size: 20px;
-      }
+    ${props.theme.mui.breakpoints.up("sm")} {
+      height: 44px;
+      width: 46px;
     }
   `}
 `;

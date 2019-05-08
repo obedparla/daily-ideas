@@ -5,13 +5,13 @@ import { Typography, Button } from "@material-ui/core";
 
 import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";
-import { getCurrentDate } from "../../utils/dates";
-import { NewIdeaForm, IdeaListComp } from "./components";
+import { getCurrentDate, formatDate } from "../../utils/dates";
+import { NewIdeaForm, IdeaListComp, BeforeAfter } from "./components";
 import { PaperWrapper } from "../../components";
 
-const currentDate = getCurrentDate();
 let titleTimeout;
-
+// shownDate represents the stable date we use to move from day to day.
+const shownDate = new Date();
 const IdeaList = props => {
   const { classes } = props;
 
@@ -20,6 +20,7 @@ const IdeaList = props => {
   const [idea, setIdea] = useState("");
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(true);
+  const [currentDate, setCurrentDate] = useState(getCurrentDate());
 
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(withFirebase);
@@ -64,7 +65,7 @@ const IdeaList = props => {
     return () => {
       firebaseIdeas.off();
     };
-  }, []);
+  }, [currentDate]);
 
   const handleChange = event => {
     setIdea(event.target.value);
@@ -116,6 +117,11 @@ const IdeaList = props => {
       .set({ ...ideasList[index], text: e.target.value });
   };
 
+  const handleYesterday = () =>
+    setCurrentDate(formatDate(shownDate.setDate(shownDate.getDate() - 1)));
+  const handleTomorrow = () =>
+    setCurrentDate(formatDate(shownDate.setDate(shownDate.getDate() + 1)));
+
   return (
     <PaperWrapper loading={loading}>
       <IdeaListComp
@@ -142,6 +148,12 @@ const IdeaList = props => {
         ideasList={ideasList}
         handleIdeaSubmit={handleIdeaSubmit}
         handleChange={handleChange}
+      />
+
+      <BeforeAfter
+        currentDate={currentDate}
+        handleTomorrow={handleTomorrow}
+        handleYesterday={handleYesterday}
       />
     </PaperWrapper>
   );
