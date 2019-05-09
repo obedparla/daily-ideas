@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import _findIndex from "lodash/findIndex";
-import { Typography, Button, Divider, Grid, List } from "@material-ui/core";
+import { Typography, Button, Divider, Grid } from "@material-ui/core";
 
 import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";

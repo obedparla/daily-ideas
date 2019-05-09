@@ -4,17 +4,14 @@ import styled from "styled-components";
 import {
   Avatar,
   Chip,
-  Grid,
   IconButton,
   List,
   Paper,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
 import { DenseListItem } from "../../../components";
-import { ViewTypeSwitch } from "./SwitchViewType";
 
 export const IdeaListComp = props => {
   const { classes } = props;
