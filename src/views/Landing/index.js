@@ -30,7 +30,11 @@ const LandingPage = props => {
           </p>
         </div>
         <div className="img-holder mt-3">
-          <img src="images/iphonex.png" alt="phone" className="img-fluid" />
+          <img
+            src="images/iphone-x-ideas.png"
+            alt="phone"
+            className="img-fluid"
+          />
         </div>
       </section>
 
@@ -150,7 +154,7 @@ const LandingPage = props => {
             </div>
             <div className="col-md-4">
               <img
-                src="images/iphonex.png"
+                src="images/iphone-x-ideas-full.png"
                 alt="iphone"
                 className="img-fluid"
               />
