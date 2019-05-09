@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import styled from "styled-components";
 import {
   Avatar,
   Chip,
@@ -30,15 +30,6 @@ export const IdeaListComp = props => {
 
   return (
     <List className={classes.root}>
-      <Grid container justify="space-between">
-        <Typography variant="h4" align="center" gutterBottom>
-          Write your Daily ideas
-        </Typography>
-        <ViewTypeSwitch
-          setViewType={props.setViewType}
-          viewType={props.viewType}
-        />
-      </Grid>
       <TextField
         value={props.title}
         label="Title"
@@ -53,48 +44,61 @@ export const IdeaListComp = props => {
         multiline
       />
 
-      {props.ideasList.map((idea, index) => {
-        if (props.viewType === "chips") {
-          return (
-            <Chip
-              id={idea.id}
-              label={idea.text}
-              onDelete={() => props.handleDelete(idea, index)}
-              variant="outlined"
-              color="primary"
-              avatar={<Avatar>{index + 1}</Avatar>}
-              className={ideaClasses.chips}
-            />
-          );
-        } else {
-          return (
-            <Paper key={idea.id} className={classes.paper} elevation={1}>
-              <DenseListItem button>
-                <TextField
-                  fullWidth
-                  className={classes.textField}
-                  value={idea.text}
-                  margin="normal"
-                  variant="outlined"
-                  onChange={props.handleIdeaEdit}
-                  multiline
-                />
-                <IconButton
-                  aria-label="Delete"
-                  className={classes.margin}
-                  onClick={() => props.handleDelete(idea, index)}
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-              </DenseListItem>
-            </Paper>
-          );
-        }
-      })}
+      <ChipsWrapper>
+        {props.ideasList.map((idea, index) => {
+          if (props.viewType === "chips") {
+            return (
+              <StyledChip
+                id={idea.id}
+                label={idea.text}
+                onDelete={() => props.handleDelete(idea, index)}
+                variant="outlined"
+                color="primary"
+                avatar={<Avatar>{index + 1}</Avatar>}
+                className={ideaClasses.chips}
+              />
+            );
+          } else {
+            return (
+              <Paper key={idea.id} className={classes.paper} elevation={1}>
+                <DenseListItem button>
+                  <TextField
+                    fullWidth
+                    className={classes.textField}
+                    value={idea.text}
+                    margin="normal"
+                    variant="outlined"
+                    onChange={props.handleIdeaEdit}
+                    multiline
+                  />
+                  <IconButton
+                    aria-label="Delete"
+                    className={classes.margin}
+                    onClick={() => props.handleDelete(idea, index)}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                </DenseListItem>
+              </Paper>
+            );
+          }
+        })}
+      </ChipsWrapper>
     </List>
   );
 };
 
+const ChipsWrapper = styled.div`
+  overflow-x: auto;
+`;
+
+const StyledChip = styled(Chip)`
+  height: auto;
+
+  span {
+    white-space: normal;
+  }
+`;
 IdeaListComp.propTypes = {
   classes: PropTypes.object,
   title: PropTypes.string,

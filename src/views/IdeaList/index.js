@@ -1,12 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import _findIndex from "lodash/findIndex";
-import { Typography, Button } from "@material-ui/core";
+import { Typography, Button, Divider, Grid, List } from "@material-ui/core";
 
 import { AuthUserContext, withAuthorization } from "../../hocs/Session";
 import withFirebase from "../../Firebase/context";
 import { getCurrentDate, formatDate } from "../../utils/dates";
-import { NewIdeaForm, IdeaListComp, BeforeAfter } from "./components";
+import {
+  NewIdeaForm,
+  IdeaListComp,
+  BeforeAfter,
+  ViewTypeSwitch,
+} from "./components";
 import { PaperWrapper } from "../../components";
 
 let titleTimeout;
@@ -124,6 +129,18 @@ const IdeaList = props => {
 
   return (
     <PaperWrapper loading={loading}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Write your Daily ideas
+      </Typography>
+      <Divider variant="middle" />
+
+      <Grid container justify="space-between" className={classes.switchType}>
+        <ViewTypeSwitch
+          setViewType={props.setViewType}
+          viewType={props.viewType}
+        />
+      </Grid>
+
       <IdeaListComp
         classes={classes}
         title={title}
@@ -168,6 +185,9 @@ const styles = theme => ({
   },
   dense: {
     marginTop: 16,
+  },
+  switchType: {
+    margin: "20px 0 8px",
   },
 });
 
