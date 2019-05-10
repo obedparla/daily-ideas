@@ -1,7 +1,9 @@
-# Daily Ideas (in progress)
+# Daily Ideas
 Record your daily ideas in an easy to use app.
 
 This is a serverless, React Hooks only app with a focus on usability and simplicity.
+
+Visit it: https://dailyideas.app
 
 ## Technologies
 * React
