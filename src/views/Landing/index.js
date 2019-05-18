@@ -68,7 +68,7 @@ const LandingPage = props => {
                   <div className="media">
                     <Save className={props.classes.icon} />
                     <div className="media-body">
-                      <h4 className="card-title">Auto Save Across Devices</h4>
+                      <h4 className="card-title">Saves Across Devices</h4>
                       <p className="card-text">
                         Instantenous auto save. Never worry about losing your
                         ideas.{" "}
@@ -79,37 +79,42 @@ const LandingPage = props => {
               </div>
             </div>
 
-            <div className="col-12 col-lg-4">
-              <div className="card features">
-                <div className="card-body">
-                  <div className="media">
-                    <Star className={props.classes.icon} />
-                    <div className="media-body">
-                      <h4 className="card-title">Choose the best</h4>
-                      <p className="card-text">
-                        {" "}
-                        See your best ideas of the week, month, year.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/*<div className="col-12 col-lg-4">*/}
+            {/*<div className="card features">*/}
+            {/*<div className="card-body">*/}
+            {/*<div className="media">*/}
+            {/*<Star className={props.classes.icon} />*/}
+            {/*<div className="media-body">*/}
+            {/*<h4 className="card-title">Choose the best</h4>*/}
+            {/*<p className="card-text">*/}
+            {/*{" "}*/}
+            {/*See your best ideas of the week, month, year.*/}
+            {/*</p>*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*</div>*/}
 
             <div className="col-12 col-lg-4">
               <div className="card features">
-                <div className="card-body">
-                  <div className="media">
-                    <LockOpen className={props.classes.icon} />
-                    <div className="media-body">
-                      <h4 className="card-title">Open Source</h4>
-                      <p className="card-text">
-                        {" "}
-                        All the code running the app it's open source.{" "}
-                      </p>
+                <a
+                  href="https://github.com/obedparla/daily-ideas"
+                  title="Daily Ideas GitHub Repo"
+                >
+                  <div className="card-body">
+                    <div className="media">
+                      <LockOpen className={props.classes.icon} />
+                      <div className="media-body">
+                        <h4 className="card-title">Open Source</h4>
+                        <p className="card-text">
+                          {" "}
+                          All the code running the app it's open source.{" "}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -125,12 +130,14 @@ const LandingPage = props => {
           <div className="row">
             <div className="col-md-8 d-flex align-items-center">
               <ul className="list-unstyled ui-steps">
-                <li className="media">
-                  <div className="circle-icon mr-4">1</div>
-                  <div className="media-body">
-                    <h5>Create an Account</h5>
-                  </div>
-                </li>
+                <a href="/signin" title="create an account">
+                  <li className="media">
+                    <div className="circle-icon mr-4">1</div>
+                    <div className="media-body">
+                      <h5>Create an Account</h5>
+                    </div>
+                  </li>
+                </a>
                 <li className="media my-4">
                   <div className="circle-icon mr-4">2</div>
                   <div className="media-body">

@@ -61,7 +61,7 @@ small {
 }
 
 a {
-    color: #007bff;
+    color: #13c575;
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
@@ -324,14 +324,6 @@ body {
     position: relative;
 }
 
-a {
-    color: #e38cb7;
-}
-
-a:hover, a:focus {
-    color: #d6619c;
-}
-
 h1 {
     font-size: 60px;
     font-weight: 300;
@@ -386,9 +378,13 @@ p {
 }
 
 #home {
-    padding: 100px 0 0;
+    padding: 1px 0 0;
     text-align: center;
     color: #FFF;
+}
+
+#home .container {
+    margin-top: 2rem;
 }
 
 .bg-gradient {

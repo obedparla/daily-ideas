@@ -33,6 +33,10 @@ const GlobalStyle = createGlobalStyle`
       color: inherit;
     }
   }
+  
+  header a {
+    color: white;
+  }
 `;
 
 ReactDOM.render(
