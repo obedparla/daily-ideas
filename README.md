@@ -1,16 +1,20 @@
-# Daily Ideas (in progress)
+# Daily Ideas
 Record your daily ideas in an easy to use app.
 
 This is a serverless, React Hooks only app with a focus on usability and simplicity.
 
-## Technologies
+IN PROGRESS!
+
+Visit it: https://dailyideas.app
+
+## Tech
 * React
-* A React Hooks only! No classes, no old grumpy state, only stateful functions!
-* React Router
-* Material-UI, because why wouldn't you
-* Styled Components, because it rocks and Material-UI it's not bootstrap(?).
-* Firebase, because simplicity rules
-* Prettier, because it's the best thing since peanut-butter
+* A React Hooks only! - No classes, no old grumpy state, awesome new state.
+* React Router - It's everywhere
+* Material-UI -  Gotta go fast
+* Styled Components - It's amazing <3
+* Firebase - Simplicity rules
+* Prettier -  The best thing to happen to devs since peanut-butter
 
 ## How to run the app
 
